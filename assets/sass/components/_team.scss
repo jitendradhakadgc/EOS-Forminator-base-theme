@@ -1,0 +1,46 @@
+.member {
+  padding-top: 4rem;
+  margin: 0;
+
+  &:last-child {
+    padding-bottom: 0;
+  }
+
+  &__caption {
+    padding-top: 0;
+    padding-bottom: 0;
+    background: none;
+    @include border-radius (0);
+    color: $color-black;
+    font-size: 1.4rem;
+    line-height: 1.8;
+  }
+
+  &__heading {
+    color: $color-alpha;
+    font-size: 1.8rem;
+    font-weight: $weight-extrabold;
+
+    @include media-breakpoint-up(md) {
+      font-size: 2.6rem;
+    }
+
+  }
+  
+  &__job {
+    color: $color-grey-600;
+    font-size: 1.4rem;
+    font-weight: $weight-bold;
+
+    @include media-breakpoint-up(md) {
+      font-size: 1.6rem;
+    }
+
+  }
+
+  &__excerpt {
+    margin-bottom: 0;
+    @include transition-base;
+  }
+
+}

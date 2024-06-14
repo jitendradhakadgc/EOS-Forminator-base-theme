@@ -1,0 +1,13 @@
+.intro {
+
+  h1 {
+    @include display-2;
+    color: $color-gamma;
+
+    span {
+      font-weight: $weight-regular;
+    }
+
+  }
+
+}

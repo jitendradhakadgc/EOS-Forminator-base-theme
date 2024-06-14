@@ -1,0 +1,44 @@
+.general-contact {
+    @extend .pt-4;
+}
+.forminator-custom-form {
+    .forminator-field {
+        .forminator-label {
+            @extend .text-left, .text-dark, .text-hind;
+            font-size: 15px !important;
+        }
+
+        &.forminator-is_hover, &.forminator-is_active {
+            .forminator-input, .forminator-textarea {
+                border-color: $secondary !important;
+            }
+        }
+
+        .forminator-error-message {
+            @extend .text-left;
+        }
+
+        .forminator-button-upload {
+            @extend .btn-gold-bg, .mt-2;
+        }
+        .forminator-button-submit {
+            @extend .btn-gold-bg;
+        }
+
+        .forminator-file-upload  {
+            span {
+                margin-top: 9px;
+            }
+            .forminator-icon-close {
+                color: $primary !important;
+                margin-top: 10px;
+            }
+            .forminator-button-delete:hover {
+                background: transparent !important;
+                i {
+                    color: red;
+                }
+            }
+        }
+    }
+}

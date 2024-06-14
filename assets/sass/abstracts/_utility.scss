@@ -1,0 +1,1052 @@
+/*------------------------------------------------------------------------------------*/
+/* TEXT - USED FROM BOOTSTRAP > UTILITIES > TEXT.SCSS & BOOTSTRAP > VENDOR > RFS.SCSS */
+/*------------------------------------------------------------------------------------*/
+
+$rfs-base-font-size: 1.25rem !default;
+$rfs-font-size-unit: rem !default;
+
+// Breakpoint at where font-size starts decreasing if screen width is smaller
+$rfs-breakpoint: 1200px !default;
+$rfs-breakpoint-unit: px !default;
+
+// Resize font-size based on screen height and width
+$rfs-two-dimensional: false !default;
+
+// Factor of decrease
+$rfs-factor: 10 !default;
+
+@if type-of($rfs-factor) != "number" or $rfs-factor <= 1 {
+  @error "`#{$rfs-factor}` is not a valid  $rfs-factor, it must be greater than 1.";
+}
+
+// Generate enable or disable classes. Possibilities: false, "enable" or "disable"
+$rfs-class: false !default;
+
+// 1 rem = $rfs-rem-value px
+$rfs-rem-value: 16 !default;
+
+// Safari iframe resize bug: https://github.com/twbs/rfs/issues/14
+$rfs-safari-iframe-resize-bug-fix: false !default;
+
+// Disable RFS by setting $enable-responsive-font-sizes to false
+$enable-responsive-font-sizes: true !default;
+
+// Cache $rfs-base-font-size unit
+$rfs-base-font-size-unit: unit($rfs-base-font-size);
+
+// Remove px-unit from $rfs-base-font-size for calculations
+@if $rfs-base-font-size-unit == "px" {
+  $rfs-base-font-size: $rfs-base-font-size / ($rfs-base-font-size * 0 + 1);
+}
+@else if $rfs-base-font-size-unit == "rem" {
+  $rfs-base-font-size: $rfs-base-font-size / ($rfs-base-font-size * 0 + 1 / $rfs-rem-value);
+}
+
+// Cache $rfs-breakpoint unit to prevent multiple calls
+$rfs-breakpoint-unit-cache: unit($rfs-breakpoint);
+
+// Remove unit from $rfs-breakpoint for calculations
+@if $rfs-breakpoint-unit-cache == "px" {
+  $rfs-breakpoint: $rfs-breakpoint / ($rfs-breakpoint * 0 + 1);
+}
+@else if $rfs-breakpoint-unit-cache == "rem" or $rfs-breakpoint-unit-cache == "em" {
+  $rfs-breakpoint: $rfs-breakpoint / ($rfs-breakpoint * 0 + 1 / $rfs-rem-value);
+}
+
+// Responsive font-size mixin
+@mixin rfs($fs, $important: false) {
+  // Cache $fs unit
+  $fs-unit: if(type-of($fs) == "number", unit($fs), false);
+
+  // Add !important suffix if needed
+  $rfs-suffix: if($important, " !important", "");
+
+  // If $fs isn't a number (like inherit) or $fs has a unit (not px or rem, like 1.5em) or $ is 0, just print the value
+  @if not $fs-unit or $fs-unit != "" and $fs-unit != "px" and $fs-unit != "rem" or $fs == 0 {
+    font-size: #{$fs}#{$rfs-suffix};
+  }
+  @else {
+    // Variables for storing static and fluid rescaling
+    $rfs-static: null;
+    $rfs-fluid: null;
+
+    // Remove px-unit from $fs for calculations
+    @if $fs-unit == "px" {
+      $fs: $fs / ($fs * 0 + 1);
+    }
+    @else if $fs-unit == "rem" {
+      $fs: $fs / ($fs * 0 + 1 / $rfs-rem-value);
+    }
+
+    // Set default font-size
+    @if $rfs-font-size-unit == rem {
+      $rfs-static: #{$fs / $rfs-rem-value}rem#{$rfs-suffix};
+    }
+    @else if $rfs-font-size-unit == px {
+      $rfs-static: #{$fs}px#{$rfs-suffix};
+    }
+    @else {
+      @error "`#{$rfs-font-size-unit}` is not a valid unit for $rfs-font-size-unit. Use `px` or `rem`.";
+    }
+
+    // Only add media query if font-size is bigger as the minimum font-size
+    // If $rfs-factor == 1, no rescaling will take place
+    @if $fs > $rfs-base-font-size and $enable-responsive-font-sizes {
+      $min-width: null;
+      $variable-unit: null;
+
+      // Calculate minimum font-size for given font-size
+      $fs-min: $rfs-base-font-size + ($fs - $rfs-base-font-size) / $rfs-factor;
+
+      // Calculate difference between given font-size and minimum font-size for given font-size
+      $fs-diff: $fs - $fs-min;
+
+      // Base font-size formatting
+      // No need to check if the unit is valid, because we did that before
+      $min-width: if($rfs-font-size-unit == rem, #{$fs-min / $rfs-rem-value}rem, #{$fs-min}px);
+
+      // If two-dimensional, use smallest of screen width and height
+      $variable-unit: if($rfs-two-dimensional, vmin, vw);
+
+      // Calculate the variable width between 0 and $rfs-breakpoint
+      $variable-width: #{$fs-diff * 100 / $rfs-breakpoint}#{$variable-unit};
+
+      // Set the calculated font-size.
+      $rfs-fluid: calc(#{$min-width} + #{$variable-width}) #{$rfs-suffix};
+    }
+
+    // Rendering
+    @if $rfs-fluid == null {
+      // Only render static font-size if no fluid font-size is availabel
+      font-size: $rfs-static;
+    }
+    @else {
+      $mq-value: null;
+
+      // RFS breakpoint formatting
+      @if $rfs-breakpoint-unit == em or $rfs-breakpoint-unit == rem {
+        $mq-value: #{$rfs-breakpoint / $rfs-rem-value}#{$rfs-breakpoint-unit};
+      }
+      @else if $rfs-breakpoint-unit == px {
+        $mq-value: #{$rfs-breakpoint}px;
+      }
+      @else {
+        @error "`#{$rfs-breakpoint-unit}` is not a valid unit for $rfs-breakpoint-unit. Use `px`, `em` or `rem`.";
+      }
+
+      @if $rfs-class == "disable" {
+        // Adding an extra class increases specificity,
+        // which prevents the media query to override the font size
+        &,
+        .disable-responsive-font-size &,
+        &.disable-responsive-font-size {
+          font-size: $rfs-static;
+        }
+      }
+      @else {
+        font-size: $rfs-static;
+      }
+
+      @if $rfs-two-dimensional {
+        @media (max-width: #{$mq-value}), (max-height: #{$mq-value}) {
+          @if $rfs-class == "enable" {
+            .enable-responsive-font-size &,
+            &.enable-responsive-font-size {
+              font-size: $rfs-fluid;
+            }
+          }
+          @else {
+            font-size: $rfs-fluid;
+          }
+
+          @if $rfs-safari-iframe-resize-bug-fix {
+            // stylelint-disable-next-line length-zero-no-unit
+            min-width: 0vw;
+          }
+        }
+      }
+      @else {
+        @media (max-width: #{$mq-value}) {
+          @if $rfs-class == "enable" {
+            .enable-responsive-font-size &,
+            &.enable-responsive-font-size {
+              font-size: $rfs-fluid;
+            }
+          }
+          @else {
+            font-size: $rfs-fluid;
+          }
+
+          @if $rfs-safari-iframe-resize-bug-fix {
+            // stylelint-disable-next-line length-zero-no-unit
+            min-width: 0vw;
+          }
+        }
+      }
+    }
+  }
+}
+
+// The font-size & responsive-font-size mixin uses RFS to rescale font sizes
+@mixin font-size($fs, $important: false) {
+  @include rfs($fs, $important);
+}
+
+@mixin responsive-font-size($fs, $important: false) {
+  @include rfs($fs, $important);
+}
+
+@mixin font-size($fs, $important: false) {
+  @include rfs($fs, $important);
+}
+
+
+/* --------------------- TEXT WRAP --------------------- */
+
+.text-justify  { text-align: justify !important; }
+.text-wrap     { white-space: normal !important; }
+.text-nowrap   { white-space: nowrap !important; }
+
+
+/* --------------------- TEXT ALIGN --------------------- */
+
+@each $breakpoint in map-keys($grid-breakpoints) {
+
+  @include media-breakpoint-up($breakpoint) {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+    .text#{$infix}-left   { text-align: left !important; }
+    .text#{$infix}-right  { text-align: right !important; }
+    .text#{$infix}-center { text-align: center !important; }
+  }
+
+}
+
+
+/* --------------------- TEXT CASE --------------------- */
+
+.text-lowercase  { text-transform: lowercase !important; }
+.text-uppercase  { text-transform: uppercase !important; }
+.text-capitalize { text-transform: capitalize !important; }
+
+
+/* --------------------- TEXT WEIGHT - CUSTOM --------------------- */
+
+// .text-light       { font-weight: $weight-light !important; }
+.text-regular     { font-weight: $weight-regular !important; }
+.text-semibold    { font-weight: $weight-semibold !important; }
+.text-bold        { font-weight: $weight-bold !important; }
+// .text-heavy       { font-weight: $weight-heavy !important; }
+// .text-extrabold   { font-weight: $weight-extrabold !important; }
+.text-italic      { font-style: italic !important; }
+
+
+/* --------------------- LINE HEIGHT --------------------- */
+
+.line-height-0 { line-height: 0 !important; }
+.line-height-1 { line-height: 1 !important; }
+.line-height-2 { line-height: 1.1 !important; }
+.line-height-3 { line-height: 1.2 !important; }
+.line-height-4 { line-height: 1.3 !important; }
+.line-height-5 { line-height: 1.4 !important; }
+.line-height-6 { line-height: 1.5 !important; }
+
+
+/* --------------------- TEXT DECORATION --------------------- */
+
+.text-underline  { text-decoration: underline !important; }
+.text-line-through  { text-decoration: line-through !important; }
+
+
+/* --------------------- TEXT COLOURS --------------------- */
+
+@mixin text-emphasis-variant($parent, $color) {
+  #{$parent} {
+    color: $color !important;
+  }
+  a#{$parent} {
+    @include hover-focus {
+      color: darken($color, 10%) !important;
+    }
+  }
+}
+
+@each $color, $value in $colors {
+  @include text-emphasis-variant(".text-#{$color}", $value);
+}
+
+@mixin text-sub {
+  color: lighten($color-alpha, 40%) !important;
+}
+
+.text-sub {
+  @include text-sub;
+}
+
+
+/*-----------------------------------------------------------------------------------*/
+/* POSITION */
+/*-----------------------------------------------------------------------------------*/
+
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @include media-breakpoint-up($breakpoint) {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+    .position#{$infix}-static { position: static !important; }
+    .position#{$infix}-relative { position: relative !important; }
+    .position#{$infix}-absolute { position: absolute !important; }
+    .position#{$infix}-fixed { position: fixed !important; }
+    .position#{$infix}-sticky { position: sticky !important; }
+  }
+}
+
+
+/*-----------------------------------------------------------------------------------*/
+/* DISPLAY - USED FROM BOOTSTRAP > UTILITIES > DISPLAY.SCSS */
+/*-----------------------------------------------------------------------------------*/
+
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @include media-breakpoint-up($breakpoint) {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+    .d#{$infix}-none         { display: none !important; }
+    .d#{$infix}-inline       { display: inline !important; }
+    .d#{$infix}-inline-block { display: inline-block !important; }
+    .d#{$infix}-block        { display: block !important; }
+    .d#{$infix}-table        { display: table !important; }
+    .d#{$infix}-table-row    { display: table-row !important; }
+    .d#{$infix}-table-cell   { display: table-cell !important; }
+    .d#{$infix}-flex         { display: flex !important; }
+    .d#{$infix}-inline-flex  { display: inline-flex !important; }
+
+  }
+}
+
+@media print {
+  .d-print-none         { display: none !important; }
+  .d-print-inline       { display: inline !important; }
+  .d-print-inline-block { display: inline-block !important; }
+  .d-print-block        { display: block !important; }
+  .d-print-table        { display: table !important; }
+  .d-print-table-row    { display: table-row !important; }
+  .d-print-table-cell   { display: table-cell !important; }
+  .d-print-flex         { display: flex !important; }
+  .d-print-inline-flex  { display: inline-flex !important; }
+}
+
+
+/*-----------------------------------------------------------------------------------*/
+/* FLEX - USED FROM BOOTSTRAP > UTILITIES > FLEX.SCSS */
+/*-----------------------------------------------------------------------------------*/
+
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @include media-breakpoint-up($breakpoint) {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+    .flex#{$infix}-row            { flex-direction: row !important; }
+    .flex#{$infix}-column         { flex-direction: column !important; }
+    .flex#{$infix}-row-reverse    { flex-direction: row-reverse !important; }
+    .flex#{$infix}-column-reverse { flex-direction: column-reverse !important; }
+
+    .flex#{$infix}-wrap         { flex-wrap: wrap !important; }
+    .flex#{$infix}-nowrap       { flex-wrap: nowrap !important; }
+    .flex#{$infix}-wrap-reverse { flex-wrap: wrap-reverse !important; }
+    .flex#{$infix}-fill         { flex: 1 1 auto !important; }
+    .flex#{$infix}-grow-0       { flex-grow: 0 !important; }
+    .flex#{$infix}-grow-1       { flex-grow: 1 !important; }
+    .flex#{$infix}-shrink-0     { flex-shrink: 0 !important; }
+    .flex#{$infix}-shrink-1     { flex-shrink: 1 !important; }
+
+    .justify-content#{$infix}-start   { justify-content: flex-start !important; }
+    .justify-content#{$infix}-end     { justify-content: flex-end !important; }
+    .justify-content#{$infix}-center  { justify-content: center !important; }
+    .justify-content#{$infix}-between { justify-content: space-between !important; }
+    .justify-content#{$infix}-around  { justify-content: space-around !important; }
+
+    .align-items#{$infix}-start    { align-items: flex-start !important; }
+    .align-items#{$infix}-end      { align-items: flex-end !important; }
+    .align-items#{$infix}-center   { align-items: center !important; }
+    .align-items#{$infix}-baseline { align-items: baseline !important; }
+    .align-items#{$infix}-stretch  { align-items: stretch !important; }
+
+    .align-content#{$infix}-start   { align-content: flex-start !important; }
+    .align-content#{$infix}-end     { align-content: flex-end !important; }
+    .align-content#{$infix}-center  { align-content: center !important; }
+    .align-content#{$infix}-between { align-content: space-between !important; }
+    .align-content#{$infix}-around  { align-content: space-around !important; }
+    .align-content#{$infix}-stretch { align-content: stretch !important; }
+
+    .align-self#{$infix}-auto     { align-self: auto !important; }
+    .align-self#{$infix}-start    { align-self: flex-start !important; }
+    .align-self#{$infix}-end      { align-self: flex-end !important; }
+    .align-self#{$infix}-center   { align-self: center !important; }
+    .align-self#{$infix}-baseline { align-self: baseline !important; }
+    .align-self#{$infix}-stretch  { align-self: stretch !important; }
+  }
+}
+
+
+/*-----------------------------------------------------------------------------------*/
+/* ALIGN - USED FROM BOOTSTRAP > UTILITIES > ALIGN.SCSS */
+/*-----------------------------------------------------------------------------------*/
+
+.align-baseline    { vertical-align: baseline !important; } // Browser default
+.align-top         { vertical-align: top !important; }
+.align-middle      { vertical-align: middle !important; }
+.align-bottom      { vertical-align: bottom !important; }
+.align-text-bottom { vertical-align: text-bottom !important; }
+.align-text-top    { vertical-align: text-top !important; }
+
+
+/* ----- CUSTOM ----- */
+
+.align-vertical-center {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  z-index: 200;
+}
+
+
+/*-----------------------------------------------------------------------------------*/
+/* SPACING - USED FROM BOOTSTRAP > VARIABLES.SCSS - EXTRA SPACING ADDED TOO LINE 130 */
+/*-----------------------------------------------------------------------------------*/
+
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @include media-breakpoint-up($breakpoint) {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+    @each $prop, $abbrev in (margin: m, padding: p) {
+      @each $size, $length in $spacers {
+
+        .#{$abbrev}#{$infix}-#{$size} { #{$prop}: $length !important; }
+        .#{$abbrev}t#{$infix}-#{$size},
+        .#{$abbrev}y#{$infix}-#{$size} {
+          #{$prop}-top: $length !important;
+        }
+        .#{$abbrev}r#{$infix}-#{$size},
+        .#{$abbrev}x#{$infix}-#{$size} {
+          #{$prop}-right: $length !important;
+        }
+        .#{$abbrev}b#{$infix}-#{$size},
+        .#{$abbrev}y#{$infix}-#{$size} {
+          #{$prop}-bottom: $length !important;
+        }
+        .#{$abbrev}l#{$infix}-#{$size},
+        .#{$abbrev}x#{$infix}-#{$size} {
+          #{$prop}-left: $length !important;
+        }
+      }
+    }
+
+    .m#{$infix}-auto { margin: auto !important; }
+    .mt#{$infix}-auto,
+    .my#{$infix}-auto {
+      margin-top: auto !important;
+    }
+
+    .mr#{$infix}-auto,
+    .mx#{$infix}-auto {
+      margin-right: auto !important;
+    }
+
+    .mb#{$infix}-auto,
+    .my#{$infix}-auto {
+      margin-bottom: auto !important;
+    }
+
+    .ml#{$infix}-auto,
+    .mx#{$infix}-auto {
+      margin-left: auto !important;
+    }
+
+  }
+
+}
+
+
+/*-----------------------------------------------------------------------------------*/
+/* BORDER */
+/*-----------------------------------------------------------------------------------*/
+
+$border-size: 0.1rem !default;
+$border-sizes: () !default;
+$border-sizes: map-merge(
+  (
+     1: ($border-size),
+     2: ($border-size * 2),
+     3: ($border-size * 3),
+     4: ($border-size * 4),
+     5: ($border-size * 5),
+     6: ($border-size * 6),
+     7: ($border-size * 7),
+     8: ($border-size * 8),
+     9: ($border-size * 9),
+     10: ($border-size * 10),
+     11: ($border-size * 11),
+     12: ($border-size * 12),
+     13: ($border-size * 13),
+     14: ($border-size * 14),
+     15: ($border-size * 15),
+     16: ($border-size * 16),
+     17: ($border-size * 17),
+     18: ($border-size * 18),
+     19: ($border-size * 19),
+     20: ($border-size * 20),
+  ),
+  $border-sizes
+);
+
+@each $prop, $abbrev in (border: b) {
+  @each $size, $length in $border-sizes {
+    @each $color, $value in $colors {
+
+      .#{$abbrev}-#{$size}-#{$color} { 
+        #{$prop}: $length solid $value !important; 
+      }
+      .#{$abbrev}t-#{$size}-#{$color} {
+        #{$prop}-top: $length solid $value !important;
+      }
+      .#{$abbrev}r-#{$size}-#{$color} {
+        #{$prop}-right: $length solid $value !important;
+      }
+      .#{$abbrev}b-#{$size}-#{$color} {
+        #{$prop}-bottom: $length solid $value !important;
+      }
+      .#{$abbrev}l-#{$size}-#{$color} {
+        #{$prop}-left: $length solid $value !important;
+      }
+
+    }
+  }
+}
+
+.bt-0 {
+  border-top: 0 solid transparent !important;
+}
+
+.bb-0 {
+  border-bottom: 0 solid transparent !important;
+}
+
+@mixin rounded {
+  border-radius: $border-radius !important;
+
+  &-sm {
+    border-radius: $border-radius-sm !important;
+  }
+
+  &-lg {
+    border-radius: $border-radius-lg !important;
+  }
+
+}
+
+@mixin rounded-top {
+  border-top-left-radius: $border-radius !important;
+  border-top-right-radius: $border-radius !important;
+
+  &-sm {
+    border-top-left-radius: $border-radius-sm !important;
+    border-top-right-radius: $border-radius-sm !important;
+  }
+
+  &-lg {
+    border-top-left-radius: $border-radius-lg !important;
+    border-top-right-radius: $border-radius-lg !important;
+  }
+
+}
+
+@mixin rounded-right {
+  border-top-right-radius: $border-radius !important;
+  border-bottom-right-radius: $border-radius !important;
+
+  &-sm {
+    border-top-right-radius: $border-radius-sm !important;
+    border-bottom-right-radius: $border-radius-sm !important;
+  }
+
+  &-lg {
+    border-top-right-radius: $border-radius-lg !important;
+    border-bottom-right-radius: $border-radius-lg !important;
+  }
+
+}
+
+@mixin rounded-bottom {
+  border-bottom-right-radius: $border-radius !important;
+  border-bottom-left-radius: $border-radius !important;
+
+  &-sm {
+    border-bottom-right-radius: $border-radius-sm !important;
+    border-bottom-left-radius: $border-radius-sm !important;
+  }
+
+  &-lg {
+    border-bottom-right-radius: $border-radius-lg !important;
+    border-bottom-left-radius: $border-radius-lg !important;
+  }
+
+}
+
+@mixin rounded-left {
+  border-top-left-radius: $border-radius !important;
+  border-bottom-left-radius: $border-radius !important;
+
+  &-sm {
+    border-top-left-radius: $border-radius-sm !important;
+    border-bottom-left-radius: $border-radius-sm !important;
+  }
+
+  &-lg {
+    border-top-left-radius: $border-radius-lg !important;
+    border-bottom-left-radius: $border-radius-lg !important;
+  }
+
+}
+
+.rounded {
+  @include rounded;
+
+  &-top {
+    @include rounded-top;
+  }
+
+  &-right {
+    @include rounded-right;
+  }
+
+  &-bottom {
+    @include rounded-bottom;
+  }
+
+  &-left {
+    @include rounded-left;
+  }
+
+  &-circle {
+    border-radius: 50% !important;
+  }
+
+  &-none {
+    border-radius: 0 !important;
+  }
+
+}
+
+
+/*-----------------------------------------------------------------------------------*/
+/* IMAGE - USED FROM BOOTSTRAP > IMAGES.SCSS */
+/*-----------------------------------------------------------------------------------*/
+
+@mixin img-fluid {
+  max-width: 100%;
+  height: auto;
+}
+
+.img-fluid {
+  @include img-fluid;
+}
+
+/* ----- CUSTOM ----- */
+
+.img-background {
+  @include background-size (cover);
+  background-position: center center;
+  background-repeat: no-repeat;
+
+  img {
+    display: none !important;
+  }
+
+}
+
+
+/* --------------------- FIGURE --------------------- */
+
+.figure {
+  display: inline-block;
+}
+
+.figure-img {
+  margin-bottom: 0.5rem;
+  line-height: 1;
+}
+
+.figure-caption {
+  color: $color-grey-500;
+}
+
+
+/*-----------------------------------------------------------------------------------*/
+/* SIZE - CUSTOMIED WITH BREAKPOINTS FROM BOOTSTRAP > UTILITIES > SIZING.SCSS */
+/*-----------------------------------------------------------------------------------*/
+
+@each $breakpoint in map-keys($grid-breakpoints) {
+
+  @include media-breakpoint-up($breakpoint) {
+
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+    @each $prop, $abbrev in (width: w, height: h) {
+      @each $size, $length in $sizes {
+        .#{$abbrev}#{$infix}-#{$size} { #{$prop}: $length !important; }
+      }
+    }
+
+  }
+
+}
+
+.max-w-100 { max-width: 100% !important; }
+.max-h-100 { max-height: 100% !important; }
+.min-w-100 { min-width: 100% !important; }
+.min-h-100 { min-height: 100% !important; }
+.vh-100 { min-height: 100vh !important; overflow: auto !important; }
+.vw-100 { min-width: 100vw !important; overflow: auto !important; }
+
+
+/*-----------------------------------------------------------------------------------*/
+/* FLOAT - USED FROM BOOTSTRAP > UTILITIES > FLOAT.SCSS */
+/*-----------------------------------------------------------------------------------*/
+
+@mixin float-left {
+  float: left !important;
+}
+@mixin float-right {
+  float: right !important;
+}
+@mixin float-none {
+  float: none !important;
+}
+
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @include media-breakpoint-up($breakpoint) {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+    .float#{$infix}-left  { @include float-left; }
+    .float#{$infix}-right { @include float-right; }
+    .float#{$infix}-none  { @include float-none; }
+  }
+}
+
+
+/*-----------------------------------------------------------------------------------*/
+/* VISIBILITY - USED FROM BOOTSTRAP > UTILITIES > VISIBILITY.SCSS */
+/*-----------------------------------------------------------------------------------*/
+
+@mixin invisible($visibility) {
+  visibility: $visibility !important;
+}
+
+.visible {
+  @include invisible(visible);
+}
+
+.invisible {
+  @include invisible(hidden);
+}
+
+/* ----- CUSTOM ----- */
+
+.disabled {
+  cursor: not-allowed;
+}
+
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @include media-breakpoint-up($breakpoint) {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+    .overflow#{$infix}-visible  { overflow: visible !important; }
+    .overflow#{$infix}-hidden   { overflow: hidden !important; }
+  }
+}
+
+
+/*-----------------------------------------------------------------------------------*/
+/* TRANSITIONS */
+/*-----------------------------------------------------------------------------------*/
+
+@mixin transition-base {
+  @include transition($transition-sm);
+  @include media-breakpoint-up(sm) {
+    @include transition($transition-lg);
+  }
+}
+
+.transition-base {
+  @include transition-base;
+}
+
+
+/*-----------------------------------------------------------------------------------*/
+/* BACKGROUND */
+/*-----------------------------------------------------------------------------------*/
+
+@each $prop, $abbrev in (background-color: bg) {
+  @each $color, $value in $colors {
+
+    .#{$abbrev}-#{$color} { 
+      #{$prop}: $value !important; 
+    }
+
+  }
+}
+
+@mixin gradient-alpha {
+  background: $color-alpha;
+  background: -moz-linear-gradient(top, $color-alpha 0%, darken($color-alpha, 8%) 100%);
+  background: -webkit-linear-gradient(top,  $color-alpha 0%, darken($color-alpha, 8%) 100%);
+  background: linear-gradient(to bottom,  $color-alpha 0%, darken($color-alpha, 8%) 100%);
+}
+
+@mixin gradient-grey {
+  background: $color-grey-200;
+  background: -moz-linear-gradient(top, $color-grey-200 0%, $color-grey-300 100%);
+  background: -webkit-linear-gradient(top, $color-grey-200 0%, $color-grey-300 100%);
+  background: linear-gradient(to bottom, $color-grey-200 0%, $color-grey-300 100%);
+}
+
+@mixin gradient-gamma {
+  background: $color-gamma;
+  background: -moz-linear-gradient(top, $color-gamma 0%, darken($color-gamma, 6%) 100%);
+  background: -webkit-linear-gradient(top,  $color-gamma 0%, darken($color-gamma, 6%) 100%);
+  background: linear-gradient(to bottom,  $color-gamma 0%, darken($color-gamma, 6%) 100%);
+}
+
+.gradient {
+
+  &-alpha {
+    @include gradient-alpha;
+  }
+
+  &-grey {
+    @include gradient-grey;
+  }
+
+  &-gamma {
+    @include gradient-gamma;
+  }
+
+}
+
+// https://www.svgbackgrounds.com/#pattern-randomized
+
+.patten-alpha {
+  background-color: #0088b4;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 2000 1500'%3E%3Cdefs%3E%3Crect stroke='%230088b4' stroke-width='0.83' width='1' height='1' id='s'/%3E%3Cpattern id='a' width='3' height='3' patternUnits='userSpaceOnUse' patternTransform='scale(50) translate(-980 -735)'%3E%3Cuse fill='%23058ab6' href='%23s' y='2'/%3E%3Cuse fill='%23058ab6' href='%23s' x='1' y='2'/%3E%3Cuse fill='%230a8db7' href='%23s' x='2' y='2'/%3E%3Cuse fill='%230a8db7' href='%23s'/%3E%3Cuse fill='%230f8fb9' href='%23s' x='2'/%3E%3Cuse fill='%230f8fb9' href='%23s' x='1' y='1'/%3E%3C/pattern%3E%3Cpattern id='b' width='7' height='11' patternUnits='userSpaceOnUse' patternTransform='scale(50) translate(-980 -735)'%3E%3Cg fill='%231492ba'%3E%3Cuse href='%23s'/%3E%3Cuse href='%23s' y='5' /%3E%3Cuse href='%23s' x='1' y='10'/%3E%3Cuse href='%23s' x='2' y='1'/%3E%3Cuse href='%23s' x='2' y='4'/%3E%3Cuse href='%23s' x='3' y='8'/%3E%3Cuse href='%23s' x='4' y='3'/%3E%3Cuse href='%23s' x='4' y='7'/%3E%3Cuse href='%23s' x='5' y='2'/%3E%3Cuse href='%23s' x='5' y='6'/%3E%3Cuse href='%23s' x='6' y='9'/%3E%3C/g%3E%3C/pattern%3E%3Cpattern id='h' width='5' height='13' patternUnits='userSpaceOnUse' patternTransform='scale(50) translate(-980 -735)'%3E%3Cg fill='%231492ba'%3E%3Cuse href='%23s' y='5'/%3E%3Cuse href='%23s' y='8'/%3E%3Cuse href='%23s' x='1' y='1'/%3E%3Cuse href='%23s' x='1' y='9'/%3E%3Cuse href='%23s' x='1' y='12'/%3E%3Cuse href='%23s' x='2'/%3E%3Cuse href='%23s' x='2' y='4'/%3E%3Cuse href='%23s' x='3' y='2'/%3E%3Cuse href='%23s' x='3' y='6'/%3E%3Cuse href='%23s' x='3' y='11'/%3E%3Cuse href='%23s' x='4' y='3'/%3E%3Cuse href='%23s' x='4' y='7'/%3E%3Cuse href='%23s' x='4' y='10'/%3E%3C/g%3E%3C/pattern%3E%3Cpattern id='c' width='17' height='13' patternUnits='userSpaceOnUse' patternTransform='scale(50) translate(-980 -735)'%3E%3Cg fill='%231a94bc'%3E%3Cuse href='%23s' y='11'/%3E%3Cuse href='%23s' x='2' y='9'/%3E%3Cuse href='%23s' x='5' y='12'/%3E%3Cuse href='%23s' x='9' y='4'/%3E%3Cuse href='%23s' x='12' y='1'/%3E%3Cuse href='%23s' x='16' y='6'/%3E%3C/g%3E%3C/pattern%3E%3Cpattern id='d' width='19' height='17' patternUnits='userSpaceOnUse' patternTransform='scale(50) translate(-980 -735)'%3E%3Cg fill='%230088b4'%3E%3Cuse href='%23s' y='9'/%3E%3Cuse href='%23s' x='16' y='5'/%3E%3Cuse href='%23s' x='14' y='2'/%3E%3Cuse href='%23s' x='11' y='11'/%3E%3Cuse href='%23s' x='6' y='14'/%3E%3C/g%3E%3Cg fill='%231f96bd'%3E%3Cuse href='%23s' x='3' y='13'/%3E%3Cuse href='%23s' x='9' y='7'/%3E%3Cuse href='%23s' x='13' y='10'/%3E%3Cuse href='%23s' x='15' y='4'/%3E%3Cuse href='%23s' x='18' y='1'/%3E%3C/g%3E%3C/pattern%3E%3Cpattern id='e' width='47' height='53' patternUnits='userSpaceOnUse' patternTransform='scale(50) translate(-980 -735)'%3E%3Cg fill='%230088b4'%3E%3Cuse href='%23s' x='2' y='5'/%3E%3Cuse href='%23s' x='16' y='38'/%3E%3Cuse href='%23s' x='46' y='42'/%3E%3Cuse href='%23s' x='29' y='20'/%3E%3C/g%3E%3C/pattern%3E%3Cpattern id='f' width='59' height='71' patternUnits='userSpaceOnUse' patternTransform='scale(50) translate(-980 -735)'%3E%3Cg fill='%230088b4'%3E%3Cuse href='%23s' x='33' y='13'/%3E%3Cuse href='%23s' x='27' y='54'/%3E%3Cuse href='%23s' x='55' y='55'/%3E%3C/g%3E%3C/pattern%3E%3Cpattern id='g' width='139' height='97' patternUnits='userSpaceOnUse' patternTransform='scale(50) translate(-980 -735)'%3E%3Cg fill='%230088b4'%3E%3Cuse href='%23s' x='11' y='8'/%3E%3Cuse href='%23s' x='51' y='13'/%3E%3Cuse href='%23s' x='17' y='73'/%3E%3Cuse href='%23s' x='99' y='57'/%3E%3C/g%3E%3C/pattern%3E%3C/defs%3E%3Crect fill='url(%23a)' width='100%25' height='100%25'/%3E%3Crect fill='url(%23b)' width='100%25' height='100%25'/%3E%3Crect fill='url(%23h)' width='100%25' height='100%25'/%3E%3Crect fill='url(%23c)' width='100%25' height='100%25'/%3E%3Crect fill='url(%23d)' width='100%25' height='100%25'/%3E%3Crect fill='url(%23e)' width='100%25' height='100%25'/%3E%3Crect fill='url(%23f)' width='100%25' height='100%25'/%3E%3Crect fill='url(%23g)' width='100%25' height='100%25'/%3E%3C/svg%3E");
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+
+/*-----------------------------------------------------------------------------------*/
+/* SHADOWS */
+/*-----------------------------------------------------------------------------------*/
+
+// https://tobiasahlin.com/blog/layered-smooth-box-shadows/
+
+@mixin shadow-1 {
+  box-shadow: 0 1px 2px rgba($color-black,0.02), 
+              0 2px 4px rgba($color-black,0.02), 
+              0 4px 8px rgba($color-black,0.02), 
+              0 8px 16px rgba($color-black,0.02),
+              0 16px 32px rgba($color-black,0.02), 
+              0 32px 64px rgba($color-black,0.02);
+}
+
+@mixin shadow-2 {
+  box-shadow: 0 1px 2px rgba(0,0,0,0.07), 
+              0 2px 4px rgba(0,0,0,0.07), 
+              0 4px 8px rgba(0,0,0,0.07), 
+              0 8px 16px rgba(0,0,0,0.07),
+              0 16px 32px rgba(0,0,0,0.07), 
+              0 32px 64px rgba(0,0,0,0.07);
+}
+
+@mixin shadow-3 {
+  box-shadow: 0 1px 1px rgba($color-black,0.02), 
+              0 2px 2px rgba($color-black,0.02), 
+              0 4px 4px rgba($color-black,0.02), 
+              0 8px 8px rgba($color-black,0.02);
+}
+
+@mixin shadow-4 {
+  box-shadow: 0 1px 1px rgba(0,0,0,0.15), 
+              0 2px 2px rgba(0,0,0,0.15), 
+              0 4px 4px rgba(0,0,0,0.15), 
+              0 8px 8px rgba(0,0,0,0.15);
+}
+
+@mixin shadow-5 {
+  box-shadow: 0 1px 1px rgba(0,0,0,0.12), 
+              0 2px 2px rgba(0,0,0,0.12), 
+              0 4px 4px rgba(0,0,0,0.12), 
+              0 8px 8px rgba(0,0,0,0.12),
+              0 16px 16px rgba(0,0,0,0.12);
+}
+
+@mixin shadow-6 {
+  box-shadow: 0 1px 1px rgba(0,0,0,0.11), 
+              0 2px 2px rgba(0,0,0,0.11), 
+              0 4px 4px rgba(0,0,0,0.11), 
+              0 8px 8px rgba(0,0,0,0.11), 
+              0 16px 16px rgba(0,0,0,0.11), 
+              0 32px 32px rgba(0,0,0,0.11);
+}
+
+.shadow {
+
+  &-1 {
+    @include shadow-1;
+  }
+
+  &-2 {
+    @include shadow-2;
+  }
+
+  &-3 {
+    @include shadow-3;
+  }
+
+  &-4 {
+    @include shadow-4;
+  }
+
+  &-5 {
+    @include shadow-5;
+  }
+
+  &-6 {
+    @include shadow-6;
+  }
+
+}
+
+
+/*-----------------------------------------------------------------------------------*/
+/* SROLLBARS */
+/*-----------------------------------------------------------------------------------*/
+
+@mixin no-scrollbars {
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  overflow: -moz-scrollbars-none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+}
+
+.no-scrollbars {
+  @include no-scrollbars;
+}
+
+
+/*-----------------------------------------------------------------------------------*/
+/* Z-INDEX */
+/*-----------------------------------------------------------------------------------*/
+
+$zindex-level: 1 !default;
+$zindex-levels: () !default;
+$zindex-levels: map-merge(
+  (
+     1: ($zindex-level),
+     2: ($zindex-level * 2),
+     3: ($zindex-level * 3),
+     4: ($zindex-level * 4),
+     5: ($zindex-level * 5),
+     6: ($zindex-level * 6),
+     7: ($zindex-level * 7),
+     8: ($zindex-level * 8),
+     9: ($zindex-level * 9),
+     10: ($zindex-level * 10),
+     11: ($zindex-level * 11),
+     12: ($zindex-level * 12),
+     13: ($zindex-level * 13),
+     14: ($zindex-level * 14),
+     15: ($zindex-level * 15),
+     16: ($zindex-level * 16),
+     17: ($zindex-level * 17),
+     18: ($zindex-level * 18),
+     19: ($zindex-level * 19),
+     20: ($zindex-level * 20),
+  ),
+  $zindex-levels
+);
+
+@each $breakpoint in map-keys($grid-breakpoints) {
+
+  @include media-breakpoint-up($breakpoint) {
+
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+    @each $prop, $abbrev in (z-index: z) {
+      @each $level, $length in $zindex-levels {
+        .#{$abbrev}#{$infix}-#{$level} { #{$prop}: $length !important; }
+      }
+    }
+
+  }
+
+}
+
+
+/*-----------------------------------------------------------------------------------*/
+/* LIST STYLES */
+/*-----------------------------------------------------------------------------------*/
+
+@mixin list-unstyled {
+  list-style: none;
+  padding-left: 0;
+  margin-left: 0 !important;
+
+  li {
+    padding-left: 0;
+    list-style: none;
+
+    &::before {
+      display: none !important;
+    }
+
+  }
+
+}
+
+.list-unstyled {
+  @include list-unstyled;
+}
+
+@mixin list-inline {
+  list-style: none;
+  padding-left: 0;
+
+  li {
+    list-style: none;
+    display: inline-block;
+
+    &:not(:last-child) {
+      margin-right: 0.5rem;
+    }
+
+    &::before {
+      display: none !important;
+    }
+
+  }
+
+}
+
+.list-inline {
+  @include list-inline;
+}
+
+
+/*-----------------------------------------------------------------------------------*/
+/* BODY ANIMATION */
+/*-----------------------------------------------------------------------------------*/
+
+body {
+  @include animation (fadeIn 1.5s ease);
+}

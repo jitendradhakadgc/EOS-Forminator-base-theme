@@ -1,0 +1,15 @@
+.sector-page .full-width-strap, .full-width-strap {
+    @extend .full-width, .p-5, .mt-5;
+    margin-bottom: 85px;
+    h1 {
+        @extend .text-white, .text-center;
+        font-size: 38px;
+    }
+    p {
+        @extend .text-white, .text-center, .m-0;
+        font-size: 23px;
+        &:first-of-type {
+            color: #fff !important;
+        }
+    }
+}

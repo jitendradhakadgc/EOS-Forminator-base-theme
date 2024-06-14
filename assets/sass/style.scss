@@ -1,0 +1,55 @@
+/*!
+Theme Name: Base
+Author: Critical Media
+Author URI: http://critcalmedia.co.uk
+Version: 2.0.0
+License: GNU General Public License v2 or later
+License URI: LICENSE
+Text Domain: base
+*/
+
+@import "abstracts/functions";
+@import "abstracts/mixins";
+@import "abstracts/variables";
+
+@import "fonts/fontawesome";
+@import "fonts/opensans";
+
+@import "bootstrap/mixins/breakpoints";
+@import "bootstrap/mixins/grid-framework";
+@import "bootstrap/mixins/grid";
+@import "bootstrap/grid";
+
+@import "abstracts/utility";
+
+@import "partials/reset";
+
+@import "utilities/animate";
+@import "utilities/slick";
+@import "utilities/glider";
+@import "utilities/contact-form-7";
+// @import "utilities/cookie";
+
+@import "partials/type";
+@import "partials/button";
+@import "partials/tables";
+@import "partials/forms";
+@import "partials/image";
+
+@import "layout/header";
+@import "layout/footer";
+@import "layout/view";
+@import "layout/block";
+
+@import "components/navigation";
+@import "components/search";
+@import "components/title";
+@import "components/post";
+@import "components/action";
+@import "components/service";
+@import "components/quality";
+@import "components/carousel";
+@import "components/sector";
+@import "components/team";
+@import "components/media";
+@import "components/feature-list";

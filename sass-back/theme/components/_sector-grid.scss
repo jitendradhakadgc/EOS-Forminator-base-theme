@@ -1,0 +1,49 @@
+.sector-grid {
+    @extend .py-5;
+    &-item {
+        @extend .py-4, .d-flex, .flex-column;
+        
+        img {
+            @extend .w-50, .mb-2;
+            margin: 0 auto;
+        }
+        p {
+            @extend .text-dark, .text-hind, .text-center;
+            font-size: 14px;
+            &.sector-grid-item__title {
+                @extend .text-lora;
+                font-size: 18px;
+                line-height: 23px;
+            }
+            &.sector-grid-item__text {
+                display: -webkit-box;
+                -webkit-line-clamp: 4;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+        }
+        .btn {
+            margin: auto auto 0 auto;
+            @include media-breakpoint-up(lg) {
+                min-width: 100%;
+            }
+        }
+    }
+}
+
+.government {
+    .sector-grid-item .btn {
+        @extend .btn-green;
+    }
+}
+.corporate {
+    .sector-grid-item .btn {
+        @extend .btn-blue;
+    }
+}
+.private {
+    .sector-grid-item .btn {
+        @extend .btn-purple;
+    }
+}

@@ -1,0 +1,200 @@
+#wrapper-footer {
+    background: $primary;
+    border-top: 30px solid $secondary;
+
+    @include media-breakpoint-up(md) {
+        background: $primary url('../img/Footer_M.png') no-repeat;
+        background-size: auto 324px;
+        background-position: center top;
+    }
+
+    .site-footer {
+        &__address {
+            @extend .text-center;
+            margin-bottom: 30px;
+
+            img {
+                @extend .pb-3;
+                width: 120px;
+            }
+
+            p {
+                @extend .text-white, .text-hind, .m-0;
+                font-size: 13px;
+            }
+        }
+
+        &__nav {
+            @extend .text-left, .d-md-none;
+            ul {
+                @extend .p-0;
+                list-style: none;
+                li {
+                    @extend .position-relative;
+                    a {
+                        @extend .text-white, .d-block;
+                        padding: 20px 0 5px 0;
+                        border-bottom: 1px solid;
+                        margin-left: 10px;
+
+                        &:active, &:focus, &:hover {
+                            text-decoration: none;
+                        }
+
+                        &.open {
+                            &:before {
+                                @extend .position-absolute;
+                                content: "";
+                                height: 20px;
+                                width: 4px;
+                                background: $secondary;
+                                top: 30px;
+                                left: 0px;
+                            }
+
+                            &~ ul {
+                                @extend .position-relative;
+                                &:before {
+                                    content: "";
+                                    position: absolute;
+                                    width: 4px;
+                                    background: $secondary;
+                                    height: calc(100% - 23px);
+                                    bottom: 0px;
+                                }
+                            }
+
+                            &[href*='government'] {
+                                &:before, &~ ul:before {
+                                    background: $c-green;
+                                }
+                            }
+                            &[href*='corporate'] {
+                                &:before, &~ ul:before {
+                                    background: $c-blue;
+                                }
+                            }
+                            &[href*='private'] {
+                                &:before, &~ ul:before {
+                                    background: $c-purple;
+                                }
+                            }
+                            
+                        }
+
+                        i {
+                            float: right;
+                            font-size: 14px;
+                            margin-top: 10px;
+                        }
+                    }
+
+                    ul {
+                        @extend .position-relative;
+                        display: none;
+
+                        a {
+                            font-size: 14px;
+
+                            i {
+                                display: none;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        &__mini-nav {
+            @extend .d-none, .d-md-block;
+            ul {
+                @extend .d-flex, .m-0, .p-0, .justify-content-center;
+                list-style: none;
+                li {
+                    @extend .mx-4, .position-relative;
+
+                    &:after {
+                        @extend .position-absolute;
+                        content: "";
+                        height: 30px;
+                        width: 1px;
+                        background: $secondary;
+                        right: -25px;
+                        top: -3px;
+                    }
+
+                    &:last-child {
+                        &:after {
+                            @extend .d-none;
+                        }
+                    }
+
+                    a {
+                        @extend .text-hind, .text-uppercase, .transform-all;
+                        color: $c-white;
+                        font-size: 21px;
+
+                        &:hover {
+                            text-decoration: none;
+                            color: $secondary;
+                        }
+                    }
+                }
+            }
+        }
+
+        &__social {
+            ul {
+                @extend .m-0, .mt-4, .p-0, .d-flex, .justify-content-center;
+                list-style: none;
+                li {
+                    @extend .mx-3;
+                    a {
+                        @extend .transform-all;
+                        color: $c-white;
+                        &:hover {
+                            color: $secondary;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .wrapper__sub-menu {
+        @extend .text-center, .d-none, .d-md-block;
+        border-top: 1px solid $secondary;
+        margin-top: 20px;
+
+        .container {
+            @extend .d-flex, .justify-content-center;
+        }
+
+        ul {
+            @extend .m-0, .p-0, .pt-4, .d-flex;
+            list-style: none;
+            li {
+                a {
+                    @extend .text-hind, .px-3, .position-relative;
+                    font-size: 10px;
+                    color: $c-grey;
+
+                    &:before {
+                        @extend .position-absolute;
+                        content: "";
+                        height: 10px;
+                        width: 1px;
+                        background: $c-grey;
+                        left: 0px;
+                        top: 3px;
+                    }
+                }
+                span {
+                    @extend .text-hind, .px-3, .position-relative;
+                    font-size: 10px;
+                    color: $c-grey;
+                }
+            }
+        }
+    }
+}

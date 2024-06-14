@@ -1,0 +1,40 @@
+.sector-page .get-in-touch-cta, .get-in-touch-cta {
+    @extend .py-5, .text-center, .full-width;
+    background: $primary;
+    background-repeat: no-repeat;
+
+    &.globe-image {
+        background-image: url('../../understrap/img/globe-bg.png');
+        background-position: right bottom;
+        background-size: contain;
+    }
+
+    &.london-man {
+        background-image: url('../../understrap/img/man-london.jpg');
+        background-size: cover;
+    }
+
+    .col-md-6 {
+        margin: 0 auto;
+
+        h4 {
+            @extend .text-uppercase;
+            color: $secondary;
+            font-size: 28px;
+            margin-bottom: 0px;
+        }
+
+        p {
+            @extend .text-white, .py-3;
+            font-size: 21px;
+            line-height: 28px;
+            &:first-of-type {
+                color: #fff !important;
+            }
+        }
+
+        a {
+            @extend .text-uppercase;
+        }
+    }
+}

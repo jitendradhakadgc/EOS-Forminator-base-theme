@@ -1,0 +1,16 @@
+* {
+    font-family: 'Lora', serif;
+}
+
+h2, h3 {
+    @extend .text-center, .d-inline-block, .text-dark;
+
+    &:after {
+        @extend .d-block;
+        content: "";
+        width: calc(100% - 80px);
+        height: 2px;
+        background: $secondary;
+        margin: 15px auto;
+    }
+}

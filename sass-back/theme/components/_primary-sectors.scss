@@ -1,0 +1,38 @@
+.primary-sectors-cta {
+    @extend .bg-white, .text-center, .py-5;
+
+    &__sector {
+        @extend .d-flex, .flex-column;
+        padding-top: 25px;
+        padding-bottom: 25px;
+
+        img {
+            @extend .d-none, .d-md-block, .mb-3;
+            width: 72%;
+            margin: 0 auto;
+        }
+
+        h3 {
+            @extend .text-uppercase;
+            margin-bottom: 15px;
+            &:after {
+                @extend .d-none;
+            }
+        }
+
+        a {
+            @extend .text-uppercase;
+            margin: auto auto 0 auto;
+        }
+
+        p {
+            @extend .text-hind;
+            font-size: 18px;
+            line-height: 27px;
+            margin-bottom: 15px;
+            @include media-breakpoint-up(md) {
+                margin-bottom: 40px;
+            }
+        }
+    }
+}

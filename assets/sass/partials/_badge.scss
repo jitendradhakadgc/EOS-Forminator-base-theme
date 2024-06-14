@@ -1,0 +1,45 @@
+.badge {
+  display: inline-block;
+  min-width: $badge-height;
+  height: $badge-height;
+  padding: $badge-padding-y $badge-padding-x;
+  font-size: $badge-font-size;
+  font-weight: $badge-font-weight;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  @include border-radius($badge-border-radius);
+
+  &:empty {
+    display: none;
+  }
+
+}
+
+.btn .badge {
+  position: relative;
+  top: -1px;
+}
+
+.badge-pill {
+  min-width: $badge-height;
+  height: $badge-height;
+  padding-right: $badge-pill-padding-x;
+  padding-left: $badge-pill-padding-x;
+  @include border-radius($badge-pill-border-radius);
+}
+
+@each $color, $value in $colors {
+  .badge-#{$color} {
+    color: #ffffff;
+    background-color: $value;
+    border-color: $value;
+  }
+}
+
+.badge-plain {
+  padding: 0;
+  height: auto;
+  min-width: 0;
+}

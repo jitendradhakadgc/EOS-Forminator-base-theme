@@ -1,0 +1,679 @@
+@charset 'utf-8';
+
+/*-----------------------------------------------------------------------------------*/
+/* ASSETS */
+/*-----------------------------------------------------------------------------------*/
+
+$assets-path: "/base/wp-content/themes/base/assets";
+
+// background-image: url('#{$assets-path}/img/xxxxx');
+
+
+/*-----------------------------------------------------------------------------------*/
+/* COLOUR VARIABLES */
+/*-----------------------------------------------------------------------------------*/
+
+// $color-white:         #fcfefb !default;
+// $color-black:         #06120d !default;
+
+// $color-grey-100:      darken($color-white, 5) !default;
+// $color-grey-200:      darken($color-white, 10) !default;
+// $color-grey-300:      darken($color-white, 20) !default;
+// $color-grey-400:      darken($color-white, 35) !default;
+// $color-grey-500:      darken($color-white, 45) !default;
+// $color-grey-600:      darken($color-white, 55) !default;
+// $color-grey-700:      darken($color-white, 65) !default;
+// $color-grey-800:      darken($color-white, 75) !default;
+// $color-grey-900:      darken($color-white, 80) !default;
+
+$color-white:         #fcfefb !default;
+$color-grey-100:      #f8f9fa !default;
+$color-grey-200:      #e9ecef !default;
+$color-grey-300:      #dee2e6 !default;
+$color-grey-400:      #ced4da !default;
+$color-grey-500:      #8c8c8c !default;
+$color-grey-600:      #6c757d !default;
+$color-grey-700:      #495057 !default;
+$color-grey-800:      #343a40 !default;
+$color-grey-900:      #212529 !default;
+$color-black:         #222222 !default;
+
+$color-blue:        #007bff !default;
+$color-indigo:      #6610f2 !default;
+$color-purple:      #6f42c1 !default;
+$color-pink:        #e83e8c !default;
+$color-red:         #ff0000 !default;
+$color-orange:      #fd7e14 !default;
+$color-yellow:      #ffc107 !default;
+$color-green:       #28a745 !default;
+$color-teal:        #20c997 !default;
+$color-cyan:        #17a2b8 !default;
+
+$color-alpha:       #95C11F !default;
+$color-beta:        #565656 !default;
+$color-gamma:       #BCABAE !default;
+$color-delta:       #EA2B1F !default;
+
+$color-success:     $color-green !default;
+$color-info:        $color-blue !default;
+$color-progress:    $color-orange !default;
+$color-warning:     $color-yellow !default;
+$color-danger:      $color-red !default;
+
+$color-facebook:    #3b5998 !default;
+$color-twitter:     #0084b4 !default;
+$color-youtube:     #ff0000 !default;
+$color-google:      #d34836 !default;
+$color-instagram:   $color-black;
+$color-pinterest:   #cb2027 !default;
+$color-linkedin:    #0077b5 !default;
+$color-paypal:      #009cde !default;
+
+$colors: () !default;
+$colors: map-merge(
+  (
+    "blue":           $color-blue,
+    "indigo":         $color-indigo,
+    "purple":         $color-purple,
+    "pink":           $color-pink,
+    "red":            $color-red,
+    "orange":         $color-orange,
+    "yellow":         $color-yellow,
+    "green":          $color-green,
+    "teal":           $color-teal,
+    "cyan":           $color-cyan,
+
+    "white":          $color-white,
+    "black":          $color-black,
+    "grey-100":       $color-grey-100,
+    "grey-200":       $color-grey-200,
+    "grey-300":       $color-grey-300,
+    "grey-400":       $color-grey-400,
+    "grey-500":       $color-grey-500,
+    "grey-600":       $color-grey-600,
+    "grey-700":       $color-grey-700,
+    "grey-800":       $color-grey-800,
+    "grey-900":       $color-grey-900,
+    
+    "alpha":          $color-alpha,
+    "beta":           $color-beta,
+    "gamma":          $color-gamma,
+    "delta":          $color-delta,
+
+    "success":        $color-success,
+    "progress":       $color-progress,
+    "info":           $color-info,
+    "warning":        $color-warning,
+    "danger":         $color-danger
+
+  ),
+  $colors
+);
+
+$yiq-contrasted-threshold:  150 !default;
+$yiq-text-dark:             $color-grey-900 !default;
+$yiq-text-light:            $color-white !default;
+
+
+/*-----------------------------------------------------------------------------------*/
+/* SPACING VARIABLES - FROM BOOTSTRAP V4 */
+/*-----------------------------------------------------------------------------------*/
+
+$spacer: 1rem !default;
+$spacers: () !default;
+$spacers: map-merge(
+  (
+    0:  0,
+    1:  ($spacer * .25),
+    2:  ($spacer * .5),
+    3:  $spacer,
+    4:  ($spacer * 1.5),
+    5:  ($spacer * 2),
+    6:  ($spacer * 2.5),
+    7:  ($spacer * 3),
+    8:  ($spacer * 3.5),
+    9:  ($spacer * 4),
+    10: ($spacer * 4.5),
+    11: ($spacer * 5),
+    12: ($spacer * 5.5),
+    13: ($spacer * 6),
+    14: ($spacer * 6.5),
+    15: ($spacer * 7),
+    16: ($spacer * 7.5),
+    17: ($spacer * 8),
+    18: ($spacer * 8.5),
+    19: ($spacer * 9),
+    20: ($spacer * 9.5),
+    21: ($spacer * 10),
+    22: ($spacer * 10.5),
+    23: ($spacer * 11),
+    24: ($spacer * 11.5),
+    25: ($spacer * 12),
+    26: ($spacer * 12.5),
+    27: ($spacer * 13),
+    28: ($spacer * 13.5),
+    29: ($spacer * 14),
+    30: ($spacer * 14.5),
+    31: ($spacer * 15),
+    32: ($spacer * 15.5),
+    33: ($spacer * 16),
+    34: ($spacer * 16.5),
+    35: ($spacer * 17),
+    36: ($spacer * 17.5),
+    37: ($spacer * 18),
+    38: ($spacer * 18.5),
+    39: ($spacer * 19),
+    40: ($spacer * 19.5),
+    41: ($spacer * 20),
+    42: ($spacer * 20.5),
+    43: ($spacer * 21),
+    44: ($spacer * 21.5),
+    45: ($spacer * 22),
+    46: ($spacer * 22.5),
+    47: ($spacer * 23),
+    48: ($spacer * 23.5),
+    49: ($spacer * 24),
+    50: ($spacer * 24.5),
+    51: ($spacer * 25)
+  ),
+  $spacers
+);
+
+$sizes: () !default;
+$sizes: map-merge(
+  (
+    25: 25%,
+    50: 50%,
+    75: 75%,
+    100: 100%,
+    auto: auto
+  ),
+  $sizes
+);
+
+
+/*-----------------------------------------------------------------------------------*/
+/* GRID VARIABLES - FROM BOOTSTRAP V4 */
+/*-----------------------------------------------------------------------------------*/
+
+$enable-grid-classes: true !default;
+
+
+/* --------------------- GRID BREAKPOINTS --------------------- */
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1600px
+) !default;
+
+@include _assert-ascending($grid-breakpoints, "$grid-breakpoints");
+@include _assert-starts-at-zero($grid-breakpoints);
+
+
+/* --------------------- GRID CONTAINERS --------------------- */
+
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1140px,
+  xxl: 1300px
+) !default;
+
+@include _assert-ascending($container-max-widths, "$container-max-widths");
+
+
+/* --------------------- GRID COLUMNS --------------------- */
+
+$grid-columns:        12 !default;
+$grid-gutter-width:   3rem !default;
+$form-gutter-width:   1.5rem !default;
+
+
+/* --------------------- ROW SPACING --------------------- */
+
+@mixin row-sm {
+  margin-right: -1rem;
+  margin-left: -1rem;
+}
+
+.row-sm {
+  @include row-sm;
+}
+
+
+/*-----------------------------------------------------------------------------------*/
+/* TRANSITION VARIABLES - FROM BOOTSTRAP V4 */
+/*-----------------------------------------------------------------------------------*/
+
+$enable-transitions:      true !default;
+
+$transition-lg:           all 0.3s ease-in-out !default;
+$transition-sm:           all 0.1s ease-in-out !default;
+$transition-fade:         opacity 0.15s linear !default;
+$transition-collapse:     height 0.35s ease !default;
+
+
+/*-----------------------------------------------------------------------------------*/
+/* SELECTION VARIABLES */
+/*-----------------------------------------------------------------------------------*/
+
+@mixin selection {
+  background-color: $color-alpha;
+  color: $color-white;
+}
+
+::selection {
+  @include selection;
+}
+
+::-moz-selection {
+  @include selection;
+}
+
+
+/*-----------------------------------------------------------------------------------*/
+/* FONT VARIABLES */
+/*-----------------------------------------------------------------------------------*/
+
+/* --------------------- FONT FAMILIES --------------------- */
+
+$fontawesome: 'FontAwesome', sans-serif;
+// $fontawesome: 'Font Awesome 5 Pro', sans-serif;
+$opensans: 'Open Sans', sans-serif;
+$montserrat: 'Montserrat', sans-serif;
+$raleway: 'Raleway', sans-serif;
+
+
+/* --------------------- FONT WEIGHTS --------------------- */
+
+$weight-light:        300 !default;
+$weight-regular:      400 !default;
+$weight-medium:       500 !default;
+$weight-semibold:     600 !default;
+$weight-bold:         700 !default;
+$weight-extrabold:    800 !default;
+$weight-black:        900 !default;
+
+$weight-fontawesome:  900 !default;
+
+
+/*-----------------------------------------------------------------------------------*/
+/* BODY VARIABLES */
+/*-----------------------------------------------------------------------------------*/
+
+$body-font:               $opensans !default;
+$body-font-size:          1.8rem !default;
+
+$body-weight:             $weight-medium !default;
+$body-line-height:        1.7 !default;
+$body-color:              $color-black !default;
+$body-background:         $color-alpha !default;
+$body-small:              80%;
+
+$body-font-size-sm:       1.6rem !default;
+$body-line-height-sm:     1.6 !default;
+
+$body-font-size-lg:       1.9rem !default;
+$body-line-height-lg:     2 !default;
+
+
+/*-----------------------------------------------------------------------------------*/
+/* HEADER VARIABLES */
+/*-----------------------------------------------------------------------------------*/
+
+$primary-header-background:     $color-alpha !default;
+$secondary-header-background:   $color-grey-800 !default;
+
+$header-font-size:              2rem;
+$header-font-size-sm:           1.7rem;
+$header-font-weight:            $body-weight;
+$header-font-color:             rgba($color-white, 0.8);
+
+$header-icon-height:            4.5rem;
+$header-icon-width:             $header-icon-height;
+$header-icon-size:              1.9rem;
+$header-icon-line-height:       4.4rem;
+$header-icon-background:        transparent;
+$header-icon-border-color:      $header-font-color;
+$header-icon-border-width:      0.1rem;
+
+
+/*-----------------------------------------------------------------------------------*/
+/* NAVIGATION VARIABLES */
+/*-----------------------------------------------------------------------------------*/
+
+$nav-breakpoint-up:             lg;
+$nav-breakpoint-down:           md;
+
+$primary-nav-font-size:         1.8rem;
+$primary-nav-font-size-sm:      1.6rem;
+$primary-nav-font-weight:       $weight-semibold;
+$primary-nav-font-color:        $header-font-color;
+
+$secondary-nav-font-size:       1.8rem;
+$secondary-nav-font-size-sm:    1.6rem;
+$secondary-nav-font-weight:     $weight-semibold;
+$secondary-nav-font-color:      $color-grey-400;
+
+
+/*-----------------------------------------------------------------------------------*/
+/* VIEW VARIABLES */
+/*-----------------------------------------------------------------------------------*/
+
+$view-background:         $color-white !default;
+
+
+/*-----------------------------------------------------------------------------------*/
+/* FOOTER VARIABLES */
+/*-----------------------------------------------------------------------------------*/
+
+$primary-footer-background:       $secondary-header-background !default;
+$secondary-footer-background:     $primary-header-background !default;
+
+$primary-footer-font-size:        1.6rem !default;
+$primary-footer-font-weight:      $primary-nav-font-weight !default;
+$primary-footer-font-color:       $secondary-nav-font-color !default;
+
+$secondary-footer-font-size:      1.3rem !default;
+$secondary-footer-font-weight:    $secondary-nav-font-weight !default;
+$secondary-footer-font-color:     $primary-nav-font-color !default;
+
+$footer-icon-height:              3.5rem;
+$footer-icon-width:               $footer-icon-height;
+$footer-icon-size:                1.4rem;
+$footer-icon-line-height:         3.4rem;
+$footer-icon-background:          transparent;
+$footer-icon-border-color:        $primary-footer-font-color;
+$footer-icon-border-width:        0.1rem;
+
+
+/*-----------------------------------------------------------------------------------*/
+/* PARAGRAPH VARIABLES */
+/*-----------------------------------------------------------------------------------*/
+
+$paragraph-margin-y:        2.2rem !default;
+$paragraph-margin-y-lg:     2.2rem !default;
+$paragraph-margin-y-sm:     1.5rem !default;
+
+
+/*-----------------------------------------------------------------------------------*/
+/* LINK VARIABLES */
+/*-----------------------------------------------------------------------------------*/
+
+$link-color:                $color-alpha !default;
+$link-disabled-color:       $color-grey-300 !default;
+$link-decoration:           none !default;
+$link-weight:               $body-weight !default;
+$link-hover-color:          darken($link-color, 15%) !default;
+$link-hover-decoration:     none !default;
+$link-focus-outline:        0.1rem dotted $color-grey-500 !default;
+
+
+/*-----------------------------------------------------------------------------------*/
+/* HEADING VARIABLES */
+/*-----------------------------------------------------------------------------------*/
+
+$h1-font-size:               5rem !default;
+$h2-font-size:               3.2rem !default;
+$h3-font-size:               3rem !default;
+$h4-font-size:               2.5rem !default;
+$h5-font-size:               1.8rem !default;
+$h6-font-size:               1.6rem !default;
+
+$headings-margin-y:          $paragraph-margin-y !default;
+$headings-margin-y-lg:       $paragraph-margin-y-lg !default;
+$headings-margin-y-sm:       $paragraph-margin-y-sm !default;
+$headings-font-family:       $body-font !default;
+$headings-font-weight:       $weight-bold !default;
+$headings-line-height:       1.4 !default;
+$headings-color:             inherit !default;
+$headings-letter-spacing:    0 !default;
+$headings-word-spacing:      0 !default;
+
+
+/*-----------------------------------------------------------------------------------*/
+/* LIST VARIABLES */
+/*-----------------------------------------------------------------------------------*/
+
+$list-margin-y:          $paragraph-margin-y !default;
+$list-margin-y-lg:       $paragraph-margin-y-lg !default;
+$list-margin-y-sm:       $paragraph-margin-y-sm !default;
+$list-inline-padding:    0.5rem !default;
+
+
+/*-----------------------------------------------------------------------------------*/
+/* IMAGE VARIABLES */
+/*-----------------------------------------------------------------------------------*/
+
+$image-margin-top-lg:     5rem !default;
+$image-margin-top-sm:     4rem !default;
+$image-margin-bottom-lg:  5rem !default;
+$image-margin-bottom-sm:  4rem !default;
+
+
+/*-----------------------------------------------------------------------------------*/
+/* BLOCKQUOTE VARIABLES */
+/*-----------------------------------------------------------------------------------*/
+
+$blockquote-margin-top-lg:     3rem !default;
+$blockquote-margin-top-sm:     3rem !default;
+$blockquote-margin-bottom-lg:  3rem !default;
+$blockquote-margin-bottom-sm:  3rem !default;
+
+
+/*-----------------------------------------------------------------------------------*/
+/* BORDER VARIABLES */
+/*-----------------------------------------------------------------------------------*/
+
+$border-color:  $color-black;
+$border-width:  0.1rem;
+$border-style:  solid;
+
+$border-radius: 0.7rem;
+$border-radius-sm: 0.2rem;
+$border-radius-lg: 0.9rem;
+
+
+/*-----------------------------------------------------------------------------------*/
+/* GLOBAL VARIABLES */
+/*-----------------------------------------------------------------------------------*/
+
+$partial-padding-y:            1.2rem !default;
+$partial-padding-x:            2rem !default;
+$partial-font-size:            1.7rem !default;
+$partial-line-height:          1.5 !default;
+$partial-weight:               $weight-medium !default;
+$partial-color:                $body-color !default;
+$partial-background:           $color-white !default;
+$partial-focus-width:          .2rem !default;
+$partial-focus-color:          rgba($color-grey-800, .25) !default;
+$partial-focus-box-shadow:     0 0 0 $partial-focus-width $partial-focus-color !default;
+
+$partial-padding-y-sm:         0.8rem !default;
+$partial-padding-x-sm:         1.3rem !default;
+$partial-font-size-sm:         $body-font-size-sm !default;
+$partial-line-height-sm:       $body-line-height-sm !default;
+$partial-weight-sm:            $body-weight !default;
+
+$partial-padding-y-lg:         1rem !default;
+$partial-padding-x-lg:         2.1rem !default;
+$partial-font-size-lg:         $body-font-size-lg !default;
+$partial-line-height-lg:       $body-line-height-lg !default;
+$partial-weight-lg:            $body-weight !default;
+
+$partial-border-width:         $border-width !default;
+$partial-border-color:         $color-grey-400 !default;
+$partial-border-focus-color:   $color-grey-500 !default;
+$partial-border-style:         $border-style !default;
+$partial-border-radius:        $border-radius !default;
+$partial-border-radius-sm:     $border-radius-sm !default;
+$partial-border-radius-lg:     $border-radius-lg !default;
+
+
+/*-----------------------------------------------------------------------------------*/
+/* TABLE VARIABLES */
+/*-----------------------------------------------------------------------------------*/
+
+$table-cell-padding-y:        1.8rem !default;
+$table-cell-padding-x:        1.5rem !default;
+$table-margin:                $paragraph-margin-y !default;
+$table-border-color:          $color-grey-300 !default;
+$table-border-width:          $partial-border-width !default;
+$table-border-radius:         $partial-border-radius !default;
+$table-border-style:          $partial-border-style !default;
+$table-align:                 left !default;
+$table-vertical-align:        middle !default;
+
+$table-head-font-size:        1.4rem !default;
+$table-head-weight:           $weight-bold !default;
+$table-head-line-height:      1.2 !default;
+$table-head-color:            $color-grey-500 !default;
+$table-head-background:       transparent !default;
+
+$table-body-font-size:        $partial-font-size !default;
+$table-body-weight:           $partial-weight !default;
+$table-body-line-height:      1.4 !default;
+$table-body-color:            $partial-color !default;
+$table-body-background:       $partial-background !default;
+
+
+/*-----------------------------------------------------------------------------------*/
+/* FORM VARIABLES */
+/*-----------------------------------------------------------------------------------*/
+
+$form-font-size:              $partial-font-size !default;
+$form-font-weight:            $partial-weight !default;
+$form-line-height:            $partial-line-height !default;
+$form-color:                  $partial-color !default;
+$form-label-color:            $color-grey-700 !default;
+$form-placholder-color:       $color-grey-500 !default;
+$form-border-color:           $partial-border-color !default;
+$form-border-focus-color:     $partial-border-focus-color !default;
+$form-border-width:           $partial-border-width !default;
+$form-border-radius:          0.5rem !default;
+$form-border-style:           $partial-border-style !default;
+$form-background:             $color-white !default;
+$form-focus-background:       $color-white !default;
+$form-transition:             all .15s ease-in-out !default;         
+$form-padding-y:              1.8rem !default;
+$form-padding-x:              $partial-padding-x !default;
+$form-group-margin:           1.8rem !default;
+
+$form-font-size-sm:           $partial-font-size-sm !default;
+$form-line-height-sm:         $partial-line-height-sm !default;
+$form-font-weight-sm:         $partial-weight-sm !default;
+$form-padding-y-sm:           $partial-padding-y-sm !default;
+$form-padding-x-sm:           $partial-padding-x-sm !default;
+$form-group-margin-sm:        1.5rem !default;
+$form-border-radius-sm:       0.3rem !default;
+
+$form-font-size-lg:           $partial-font-size-lg !default;
+$form-line-height-lg:         $partial-line-height-lg !default;
+$form-font-weight-lg:         $weight-semibold !default;
+$form-padding-y-lg:           $partial-padding-y-lg !default;
+$form-padding-x-lg:           $partial-padding-x-lg !default;
+$form-group-margin-lg:        1.2rem !default;
+$form-border-radius-lg:       0.5rem !default;
+
+$form-height-border:          $form-border-width * 2 !default;
+
+$form-height:                 calc(#{$form-line-height} + #{$form-padding-y * 2} + #{$form-height-border}) !default;
+$form-height-sm:              calc(#{$form-line-height-sm} + #{$form-padding-y-sm * 2} + #{$form-height-border}) !default;
+$form-height-lg:              calc(#{$form-line-height-lg} + #{$form-padding-y-lg * 2} + #{$form-height-border}) !default;
+
+
+/*-----------------------------------------------------------------------------------*/
+/* BUTTON VARIABLES */
+/*-----------------------------------------------------------------------------------*/
+
+$button-font-size:            1.6rem !default;
+$button-font-weight:          $weight-bold !default;
+$button-line-height:          $partial-line-height !default;
+$button-padding-y:            1.4rem !default;
+$button-padding-x:            $partial-padding-x !default;
+$button-border-width:         $partial-border-width !default;
+$button-border-style:         $partial-border-style !default;
+$button-border-radius:        $partial-border-radius !default;
+
+$button-font-size-sm:         $partial-font-size-sm !default;
+$button-line-height-sm:       $partial-line-height-sm !default;
+$button-padding-y-sm:         1.3rem !default;
+$button-padding-x-sm:         $partial-padding-x-sm !default;
+$button-border-radius-sm:     $partial-border-radius-sm !default;
+
+$button-font-size-lg:         $partial-font-size !default;
+$button-line-height-lg:       $partial-line-height-lg !default;
+$button-padding-y-lg:         $partial-padding-y-lg !default;
+$button-padding-x-lg:         $partial-padding-x-lg !default;
+$button-border-radius-lg:     $partial-border-radius-lg !default;
+
+
+/*-----------------------------------------------------------------------------------*/
+/* PAGINATION VARIABLES */
+/*-----------------------------------------------------------------------------------*/
+
+$pagination-font-size:              $partial-font-size-sm !default;
+$pagination-font-weight:            $weight-bold !default;
+$pagination-line-height:            $partial-line-height-sm !default;
+$pagination-color:                  $partial-color !default;
+$pagination-hover-color:            $partial-color !default;
+$pagination-active-color:           $partial-color !default;
+$pagination-disabled-color:         $partial-color !default;
+
+$pagination-background:             $color-grey-200 !default;
+$pagination-hover-background:       darken($pagination-background, 15%) !default;
+$pagination-active-background:      $partial-border-color !default;
+$pagination-disabled-background:    $color-grey-200 !default;
+
+$pagination-padding-y:              $partial-padding-y-sm !default;
+$pagination-padding-x:              $partial-padding-x-sm !default;
+
+$pagination-border-width:           $partial-border-width !default;
+$pagination-border-style:           $partial-border-style !default;
+$pagination-border-radius:          $partial-border-radius !default;
+$pagination-border-color:           $partial-border-color !default;
+$pagination-hover-border-color:     $partial-border-color !default;
+$pagination-active-border-color:    $partial-border-color !default;
+$pagination-disabled-border-color:  $partial-border-color !default;
+
+$pagination-height-border:          $pagination-border-width * 2 !default;
+
+$pagination-height:                 calc(#{$pagination-line-height * 2rem} + #{$pagination-padding-y * 2} + #{$pagination-height-border}) !default;
+
+
+/*-----------------------------------------------------------------------------------*/
+/* BADGE VARIABLES */
+/*-----------------------------------------------------------------------------------*/
+
+$badge-padding-x:           0.7rem !default;
+$badge-padding-y:           0.7rem !default;
+$badge-font-size:           $partial-font-size-sm !default;
+$badge-font-weight:         $partial-weight !default;
+$badge-line-height:         1 !default;
+$badge-border-width:        $partial-border-width !default;
+$badge-border-style:        $partial-border-style !default;
+$badge-border-radius:       $partial-border-radius !default;
+
+$badge-height-border:       $badge-border-width * 2 !default;
+
+$badge-pill-padding-x:      1rem !default;
+$badge-pill-border-radius:  $partial-border-radius-lg !default;
+
+$badge-height:              calc(#{$badge-line-height * 2rem} + #{$badge-padding-y * 2} + #{$badge-height-border}) !default;
+
+
+/*-----------------------------------------------------------------------------------*/
+/* Z INDEX VARIABLES */
+/*-----------------------------------------------------------------------------------*/
+
+$z-index-dropdown:           1000 !default;
+//$z-index-sticky:           1020 !default;
+$z-index-fixed:              1030 !default;
+$z-index-modal-backdrop:     1040 !default;
+$z-index-modal:              1050 !default;
+//$z-index-tooltip:          1070 !default;

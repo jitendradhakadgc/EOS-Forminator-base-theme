@@ -1,0 +1,96 @@
+.owl-item {
+    img {
+        height: 40px !important;
+        margin-bottom: 15px;
+        @include media-breakpoint-up(md) {
+            height: 70px !important;
+        }
+    }
+    > div {
+        @extend .text-center, .pl-3, .pr-3, .d-flex, .flex-column, .align-items-center, .justify-content-center, .py-5, .m-0;
+        min-height: 397px !important;
+
+        @include media-breakpoint-up(md) {
+            padding-top: 100px !important;
+        }
+
+        .btn {
+            width: 219px;
+        }
+
+        &:before {
+            @extend .h-100, .w-100, .position-absolute;
+            content: "";
+            background: rgba(0,0,0,0.3);
+            left: 0;
+            top: 0;
+            z-index: 8;
+        }
+
+        * {
+            position: relative;
+            z-index: 9;
+        }
+
+        p {
+            @extend .mb-5;
+            @include media-breakpoint-up(md) {
+                font-size: 27px;
+                line-height: 34px;
+            }
+        }
+    }
+
+    p, h3 {
+        @extend .text-white;
+        @include media-breakpoint-up(md) {
+            width: 50%;
+        }
+    }
+
+    p {
+        @include media-breakpoint-up(lg) {
+            font-size: 22px;
+            padding: 10px 0;
+        }
+        @include media-breakpoint-up(xl) {
+            font-size: 34px;
+        }
+    }
+}
+.owl-carousel.sa_owl_theme { 
+    @extend .mb-0;
+    
+    @include media-breakpoint-up(md) {
+        margin-top: -110px;
+    }
+
+    .owl-dots {
+        bottom: 0px !important;
+
+        .owl-dot {
+
+            span {
+                width: 60px !important;
+                height: 2px !important;
+                background: $c-grey !important;
+                -moz-border-radius: 0 !important;
+                border-radius: 0 !important;
+                margin: 0 5px 10px 5px !important;
+            }
+
+            &.active {
+                span {
+                    background: $c-white !important;
+                }
+            }
+        }
+    }
+}
+
+#slider_93 {
+    .owl-item>div p {
+        font-size: 48px;
+        line-height: 50px;
+    }
+}

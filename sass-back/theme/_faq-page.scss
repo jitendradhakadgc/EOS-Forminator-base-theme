@@ -1,0 +1,22 @@
+#full-width-page-wrapper.faq-page {
+    @extend .my-4;
+
+    h2 {
+        @extend .d-block;
+    }
+
+    .wpsm_panel-group {
+        .ac_title_class {
+            @extend .p-0;
+            line-height: initial;
+        }
+        .ac_open_cl_icon {
+            @extend .pr-0;
+        }
+        .wpsm_panel-collapse {
+            .wpsm_panel-body, .wpsm_panel-body * {
+                @extend .text-hind;
+            }
+        }
+    }
+}

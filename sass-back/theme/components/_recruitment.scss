@@ -1,0 +1,20 @@
+.recruitment {
+   
+    .job-card {
+        @extend .h-100;
+        .card-img-top {
+            @extend .p-4;
+            img {
+                // height: 155px;
+                // width: auto;
+            }
+        }
+        .card-body {
+            @extend .d-flex, .flex-column;
+
+            .card-text {
+                @extend .flex-grow-1;
+            }
+        }
+    }
+}

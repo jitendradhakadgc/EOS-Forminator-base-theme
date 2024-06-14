@@ -1,0 +1,83 @@
+.sector-page, .sector-sub-page {
+    .entry-content {
+        @extend .pt-4, .text-center;
+        ul {
+            @extend .text-left;
+        }
+    }
+
+    > p {
+        &:first-of-type {
+            @extend .text-md-center, .text-lora;
+            font-size: 21px;
+            line-height: 27px;
+            margin-bottom: 45px;
+        }
+    }
+
+    p {
+        @extend .text-dark, .text-hind;
+        
+
+        .btn {
+            @extend .text-white, .text-center, .font-weight-lighter;
+        }
+
+        a {
+            font-family: inherit;
+        }
+    }
+
+    h3 {
+        @extend .text-center;
+        margin-bottom: 30px;
+        margin-top: 30px;
+    }
+
+    &.government {
+        p {
+            @extend .text-green;
+            &.btn, &.btn a {
+                @extend .btn-green, .transform-all, .text-lora;
+                &:hover a {
+                    @extend .bg-green-darker;
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+    &.corporate {
+        p {
+            @extend .text-blue;
+            &.btn, &.btn a {
+                @extend .btn-blue, .transform-all, .text-lora;
+                &:hover a {
+                    @extend .bg-blue-darker;
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+    &.private {
+        p {
+            @extend .text-purple;
+            &.btn, &.btn a {
+                @extend .btn-purple, .transform-all, .text-lora;
+                &:hover a {
+                    @extend .bg-purple-darker;
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+
+    .wp-block-column {
+        p, ul {
+            @extend .text-left, .text-hind, .text-dark;
+        }
+    }
+}
+.wp-block-column ul li {
+    font-size: 18px;
+    margin-bottom: 10px;
+}

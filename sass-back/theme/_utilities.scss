@@ -1,0 +1,125 @@
+.rotate {
+    transform: rotate(180deg);
+}
+
+.transform-all {
+    -webkit-transition: -webkit-transform 500ms ease;
+	transition: -webkit-transform 500ms ease;
+	transition: all 500ms ease;
+	transition: all 500ms ease, -webkit-transform 500ms ease;
+}
+.full-width {
+	margin-left: calc(50% - 50vw);
+	margin-right: calc(50% - 50vw);
+}
+.text-hind {
+	font-family: 'Hind', sans-serif !important;
+}
+.text-lora {
+	font-family: 'Lora', serif !important;
+}
+.text-dark {
+	color: $c-dark-grey;
+}
+.text-green {
+	color: $c-green !important;
+}
+.text-blue {
+	color: $c-blue !important;
+}
+.text-purple {
+	color: $c-purple !important;
+}
+
+.bg-green {
+	background: $c-green;
+}
+.bg-blue {
+	background: $c-blue;
+}
+.bg-purple {
+	background: $c-purple;
+}
+.bg-gold {
+	background: $secondary;
+}
+
+.bg-green-darker {
+	background: $c-green-darker;
+}
+.bg-blue-darker {
+	background: $c-blue-darker;
+}
+.bg-purple-darker {
+	background: $c-purple-darker;
+}
+.bg-grey-darker {
+	background: $c-dark-grey;
+}
+.bg-gold-darker {
+	background: #9d7c4e;
+}
+
+.btn {
+	min-width: 160px;
+	border-radius: 10px;
+	max-width: 100%;
+
+	a {
+		&:hover {
+			text-decoration: none;
+		}
+	}
+}
+.btn-gold { //Is dark grey with gold text
+	background: $primary;
+	color: $secondary;
+	border-color: $secondary;
+
+	&:hover {
+		background: $secondary;
+		color: $primary;
+		text-decoration: none;
+	}
+}
+.btn-gold-bg { //Is dark grey with gold text
+	background: $secondary !important;
+	color: $c-white !important;
+	border-color: $secondary !important;
+
+	&:hover {
+		background: $primary !important;
+		color: $secondary !important;
+		text-decoration: none !important;
+	}
+}
+.btn-green {
+	background: $c-green;
+	color: $c-white;
+
+	&:hover {
+		background: $c-green-darker;
+		color: $c-white;
+		text-decoration: none;
+	}
+}
+.btn-blue {
+	background: $c-blue;
+	color: $c-white;
+
+	&:hover {
+		background: $c-blue-darker;
+		color: $c-white;
+		text-decoration: none;
+	}
+}
+.btn-purple {
+	background: $c-purple;
+	color: $c-white;
+
+	&:hover {
+		background: $c-purple-darker;
+		color: $c-white;
+		text-decoration: none;
+	}
+}

@@ -1,0 +1,33 @@
+.accreditations.sector-sub-page {
+    @extend .pt-4;
+
+    .accreditation-card, .job-card {
+        @extend .h-100;
+        border: none;
+        .card-img-top {
+            @extend .p-4;
+            img {
+                height: 155px;
+                width: auto;
+            }
+        }
+        .card-body {
+            @extend .d-flex, .flex-column;
+
+            a {
+                display: inline-block;
+                width: auto;
+                margin: 0 auto;
+                min-width: 200px;
+            }
+
+            .card-text {
+                @extend .flex-grow-1;
+            }
+        }
+    }
+
+    .wp-block-column {
+        margin-bottom: 15px;
+    }
+}

@@ -1,0 +1,13 @@
+.media {
+  @include slider;
+
+  .gallery {
+    overflow: hidden;
+
+    &-item {
+      margin: 0;
+    }
+
+  }
+
+}

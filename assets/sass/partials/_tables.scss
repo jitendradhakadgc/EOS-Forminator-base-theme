@@ -1,0 +1,245 @@
+table {
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: $table-margin;
+  background-color: transparent;
+
+  @include media-breakpoint-up(sm) {
+    margin-bottom: $table-margin;
+  }
+
+  th, td {
+    text-align: $table-align;
+    vertical-align: $table-vertical-align;
+  }
+
+}
+
+
+/*-----------------------------------------------------------------------------------*/
+/* TABLE - SEPARATE */
+/*-----------------------------------------------------------------------------------*/
+
+.table {
+  width: 100%;
+  border-collapse: separate; 
+  border-spacing: 0 1.5rem; 
+
+  tbody {
+
+    tr {
+      border-radius: $table-border-radius;
+      @include shadow-3;
+    }
+
+  }
+
+  th {
+    padding: 0 $table-cell-padding-x 0;
+    font-size:$table-head-font-size;
+    font-weight: $table-head-weight;
+    line-height: $table-head-line-height;
+    color: $table-head-color;
+    vertical-align: bottom;
+    text-transform: uppercase;
+  }
+
+  td {
+    padding: $table-cell-padding-y $table-cell-padding-x;
+    font-size: $table-body-font-size;
+    font-weight: $table-body-weight;
+    line-height: $table-body-line-height;
+    color: $table-body-color;
+    background: $table-body-background;
+  }
+
+  td:first-child {
+    border-top-left-radius: $table-border-radius; 
+    border-bottom-left-radius: $table-border-radius;
+  }
+
+  td:last-child {
+    border-bottom-right-radius: $table-border-radius; 
+    border-top-right-radius: $table-border-radius; 
+  }
+
+}
+
+.table-collapse {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+
+  th {
+    padding: $table-cell-padding-y $table-cell-padding-x $table-cell-padding-y;
+  }
+
+  tr:not(:first-child) {
+    border-top: $table-border-width $table-border-style $table-border-color;
+  }
+
+  td {
+    padding: $table-cell-padding-x;
+  }
+
+  td:first-child {
+    border-top-left-radius: 0; 
+    border-bottom-left-radius: 0;
+  }
+
+  td:last-child {
+    border-bottom-right-radius: 0; 
+    border-top-right-radius: 0; 
+  }
+
+
+  @include media-breakpoint-up(lg) {
+
+    tbody tr:nth-of-type(even) td {
+      background: lighten($color-grey-100, 2);
+    }
+
+  }
+
+}
+
+
+/*-----------------------------------------------------------------------------------*/
+/* TABLE RESPONSIVE - CUSTOM */
+/*-----------------------------------------------------------------------------------*/
+
+.table-custom-responsive {
+
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    $next: breakpoint-next($breakpoint, $grid-breakpoints);
+    $infix: breakpoint-infix($next, $grid-breakpoints);
+
+    &#{$infix} {
+      @include media-breakpoint-down($breakpoint) {
+
+        table,
+        thead, 
+        tbody, 
+        th, 
+        td, 
+        tr { 
+          display: block; 
+        }
+
+        thead tr { 
+          position: absolute;
+          top: -999.9rem;
+          left: -999.9rem;
+        }
+
+        tr:not(:first-child) {
+          border-top: 0;
+        }
+
+        td { 
+          border: none;
+          border-bottom: $table-border-width $table-border-style $table-border-color; 
+          position: relative;
+          padding: 1rem 1.5rem 1rem 45%;
+          white-space: normal;
+          text-align: left;
+          min-height: 4.4rem;
+          
+          &:before { 
+            position: absolute;
+            top: 1rem;
+            left: 1.5rem;
+            width: 45%; 
+            // padding-right: 1rem; 
+            white-space: nowrap;
+            text-align: left;
+            // font-weight: $weight-medium;
+            content: attr(data-title);
+          }
+
+          &:first-child {
+            border-top-right-radius: $table-border-radius;
+            border-bottom-left-radius: 0;
+          }
+
+          &:last-child {
+            border-bottom-left-radius: $table-border-radius; 
+            border-top-right-radius: 0; 
+            margin-bottom: 2rem;
+            border-bottom: 0;
+          }
+
+        }
+
+      }
+      
+    }
+
+  }
+
+}
+
+
+/*-----------------------------------------------------------------------------------*/
+/* TABLE SORT ARROWS */
+/*-----------------------------------------------------------------------------------*/
+
+table {
+
+  thead {
+
+    th {
+
+      &.sort {
+        cursor: pointer;
+
+        .sort-icon {
+          width: 1rem;
+          height: 1.1rem;
+          position: relative;
+          display: inline-block;
+          margin-left: 1rem;
+          font-family: $fontawesome;
+          font-weight: 900;
+          line-height: 0.4rem;
+  
+          &::before {
+            content: '\f107'; //<i class="fas fa-angle-down"></i>
+          }
+
+        }
+
+        &-desc {
+
+          .sort-icon {
+          
+            &::before {
+              content: '\f107'; //<i class="fas fa-angle-down"></i>
+              color: $color-grey-800;
+            }
+
+          }
+
+        }
+
+        &-asc {
+
+          .sort-icon {
+
+            &::before {
+              content: '\f106'; //<i class="fas fa-angle-up"></i>
+              color: $color-grey-800;
+            }
+
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+
+}

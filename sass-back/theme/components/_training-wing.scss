@@ -1,0 +1,19 @@
+.mobius-training-wing {
+    @extend .py-5, .text-center;
+    background-image: url('../../understrap/img/mobius-training-banner.jpg');
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    h3, p {
+        @extend .text-white;
+    }
+
+    p {
+        @extend .text-hind;
+    }
+
+    .btn {
+        @extend .text-uppercase;
+    }
+}

@@ -1,0 +1,161 @@
+@mixin font-face($font-family, $folder, $name) {
+
+  @font-face {
+    font-family: '#{$font-family}';
+    src: url('#{$assets-path}/fonts/#{$folder}/#{$name}-light.eot');
+    src: url('#{$assets-path}/fonts/#{$folder}/#{$name}-light.eot?#iefix') format('embedded-opentype'),
+         url('#{$assets-path}/fonts/#{$folder}/#{$name}-light.woff') format('woff'),
+         url('#{$assets-path}/fonts/#{$folder}/#{$name}-light.ttf') format('truetype'),
+         url('#{$assets-path}/fonts/#{$folder}/#{$name}-light.svg##{$name}-light') format('svg');
+    font-weight: 300;
+    font-style: normal;
+    font-stretch: normal;
+    unicode-range: U+0020-2074;
+  }
+
+  @font-face {
+    font-family: '#{$font-family}';
+    src: url('#{$assets-path}/fonts/#{$folder}/#{$name}-lightitalic.eot');
+    src: url('#{$assets-path}/fonts/#{$folder}/#{$name}-lightitalic.eot?#iefix') format('embedded-opentype'),
+         url('#{$assets-path}/fonts/#{$folder}/#{$name}-lightitalic.woff') format('woff'),
+         url('#{$assets-path}/fonts/#{$folder}/#{$name}-lightitalic.ttf') format('truetype'),
+         url('#{$assets-path}/fonts/#{$folder}/#{$name}-lightitalic.svg##{$name}-light') format('svg');
+    font-weight: 300;
+    font-style: italic;
+    font-stretch: normal;
+    unicode-range: U+0020-2074;
+  }
+
+  @font-face {
+    font-family: '#{$font-family}';
+    src: url('#{$assets-path}/fonts/#{$folder}/#{$name}-regular.eot');
+    src: url('#{$assets-path}/fonts/#{$folder}/#{$name}-regular.eot?#iefix') format('embedded-opentype'),
+         url('#{$assets-path}/fonts/#{$folder}/#{$name}-regular.woff') format('woff'),
+         url('#{$assets-path}/fonts/#{$folder}/#{$name}-regular.ttf') format('truetype'),
+         url('#{$assets-path}/fonts/#{$folder}/#{$name}-regular.svg##{$name}-regular') format('svg');
+    font-weight: 400;
+    font-style: normal;
+    font-stretch: normal;
+    unicode-range: U+0020-2074;
+  }
+
+  @font-face {
+    font-family: '#{$font-family}';
+    src: url('#{$assets-path}/fonts/#{$folder}/#{$name}-italic.eot');
+    src: url('#{$assets-path}/fonts/#{$folder}/#{$name}-italic.eot?#iefix') format('embedded-opentype'),
+         url('#{$assets-path}/fonts/#{$folder}/#{$name}-italic.woff') format('woff'),
+         url('#{$assets-path}/fonts/#{$folder}/#{$name}-italic.ttf') format('truetype'),
+         url('#{$assets-path}/fonts/#{$folder}/#{$name}-italic.svg##{$name}-italic') format('svg');
+    font-weight: 400;
+    font-style: italic;
+    font-stretch: normal;
+    unicode-range: U+0020-2074;
+  }
+
+  // @font-face {
+  //   font-family: '#{$font-family}';
+  //   src: url('#{$assets-path}/fonts/#{$folder}/#{$name}-medium.eot');
+  //   src: url('#{$assets-path}/fonts/#{$folder}/#{$name}-medium.eot?#iefix') format('embedded-opentype'),
+  //        url('#{$assets-path}/fonts/#{$folder}/#{$name}-medium.woff') format('woff'),
+  //        url('#{$assets-path}/fonts/#{$folder}/#{$name}-medium.ttf') format('truetype'),
+  //        url('#{$assets-path}/fonts/#{$folder}/#{$name}-medium.svg##{$name}-medium') format('svg');
+  //   font-weight: 500;
+  //   font-style: normal;
+  //   font-stretch: normal;
+  //   unicode-range: U+0020-2074;
+  // }
+
+  // @font-face {
+  //   font-family: '#{$font-family}';
+  //   src: url('#{$assets-path}/fonts/#{$folder}/#{$name}-mediumitalic.eot');
+  //   src: url('#{$assets-path}/fonts/#{$folder}/#{$name}-mediumitalic.eot?#iefix') format('embedded-opentype'),
+  //        url('#{$assets-path}/fonts/#{$folder}/#{$name}-mediumitalic.woff') format('woff'),
+  //        url('#{$assets-path}/fonts/#{$folder}/#{$name}-mediumitalic.ttf') format('truetype'),
+  //        url('#{$assets-path}/fonts/#{$folder}/#{$name}-mediumitalic.svg##{$name}-mediumitalic') format('svg');
+  //   font-weight: 500;
+  //   font-style: italic;
+  //   font-stretch: normal;
+  //   unicode-range: U+0020-2074;
+  // }
+
+  @font-face {
+    font-family: '#{$font-family}';
+    src: url('#{$assets-path}/fonts/#{$folder}/#{$name}-semibold.eot');
+    src: url('#{$assets-path}/fonts/#{$folder}/#{$name}-semibold.eot?#iefix') format('embedded-opentype'),
+         url('#{$assets-path}/fonts/#{$folder}/#{$name}-semibold.woff') format('woff'),
+         url('#{$assets-path}/fonts/#{$folder}/#{$name}-semibold.ttf') format('truetype'),
+         url('#{$assets-path}/fonts/#{$folder}/#{$name}-semibold.svg##{$name}-semibold') format('svg');
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;
+    unicode-range: U+0020-2074;
+  }
+
+  @font-face {
+    font-family: '#{$font-family}';
+    src: url('#{$assets-path}/fonts/#{$folder}/#{$name}-semibolditalic.eot');
+    src: url('#{$assets-path}/fonts/#{$folder}/#{$name}-semibolditalic.eot?#iefix') format('embedded-opentype'),
+         url('#{$assets-path}/fonts/#{$folder}/#{$name}-semibolditalic.woff') format('woff'),
+         url('#{$assets-path}/fonts/#{$folder}/#{$name}-semibolditalic.ttf') format('truetype'),
+         url('#{$assets-path}/fonts/#{$folder}/#{$name}-semibolditalic.svg##{$name}-semibolditalic') format('svg');
+    font-weight: 600;
+    font-style: italic;
+    font-stretch: normal;
+    unicode-range: U+0020-2074;
+  }
+
+  @font-face {
+    font-family: '#{$font-family}';
+    src: url('#{$assets-path}/fonts/#{$folder}/#{$name}-bold.eot');
+    src: url('#{$assets-path}/fonts/#{$folder}/#{$name}-bold.eot?#iefix') format('embedded-opentype'),
+         url('#{$assets-path}/fonts/#{$folder}/#{$name}-bold.woff') format('woff'),
+         url('#{$assets-path}/fonts/#{$folder}/#{$name}-bold.ttf') format('truetype'),
+         url('#{$assets-path}/fonts/#{$folder}/#{$name}-bold.svg##{$name}-bold') format('svg');
+    font-weight: 700;
+    font-style: normal;
+    font-stretch: normal;
+    unicode-range: U+0020-2074;
+  }
+
+  @font-face {
+    font-family: '#{$font-family}';
+    src: url('#{$assets-path}/fonts/#{$folder}/#{$name}-bolditalic.eot');
+    src: url('#{$assets-path}/fonts/#{$folder}/#{$name}-bolditalic.eot?#iefix') format('embedded-opentype'),
+         url('#{$assets-path}/fonts/#{$folder}/#{$name}-bolditalic.woff') format('woff'),
+         url('#{$assets-path}/fonts/#{$folder}/#{$name}-bolditalic.ttf') format('truetype'),
+         url('#{$assets-path}/fonts/#{$folder}/#{$name}-bolditalic.svg##{$name}-bolditalic') format('svg');
+    font-weight: 700;
+    font-style: italic;
+    font-stretch: normal;
+    unicode-range: U+0020-2074;
+  }
+
+  @font-face {
+    font-family: '#{$font-family}';
+    src: url('#{$assets-path}/fonts/#{$folder}/#{$name}-extrabold.eot');
+    src: url('#{$assets-path}/fonts/#{$folder}/#{$name}-extrabold.eot?#iefix') format('embedded-opentype'),
+         url('#{$assets-path}/fonts/#{$folder}/#{$name}-extrabold.woff') format('woff'),
+         url('#{$assets-path}/fonts/#{$folder}/#{$name}-extrabold.ttf') format('truetype'),
+         url('#{$assets-path}/fonts/#{$folder}/#{$name}-extrabold.svg##{$name}-extrabold') format('svg');
+    font-weight: 800;
+    font-style: normal;
+    font-stretch: normal;
+    unicode-range: U+0020-2074;
+  }
+
+  @font-face {
+    font-family: '#{$font-family}';
+    src: url('#{$assets-path}/fonts/#{$folder}/#{$name}-extrabolditalic.eot');
+    src: url('#{$assets-path}/fonts/#{$folder}/#{$name}-extrabolditalic.eot?#iefix') format('embedded-opentype'),
+         url('#{$assets-path}/fonts/#{$folder}/#{$name}-extrabolditalic.woff') format('woff'),
+         url('#{$assets-path}/fonts/#{$folder}/#{$name}-extrabolditalic.ttf') format('truetype'),
+         url('#{$assets-path}/fonts/#{$folder}/#{$name}-extrabolditalic.svg##{$name}-extrabolditalic') format('svg');
+    font-weight: 800;
+    font-style: italic;
+    font-stretch: normal;
+    unicode-range: U+0020-2074;
+  }
+  
+}
+
+@include font-face(Open Sans, opensans, opensans);

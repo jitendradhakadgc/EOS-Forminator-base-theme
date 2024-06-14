@@ -1,0 +1,545 @@
+/*-----------------------------------------------------------------------------------*/
+/* ROWS */
+/*-----------------------------------------------------------------------------------*/
+
+.form-row {
+  @include flexbox;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-right: -$form-gutter-width;
+  margin-left: -$form-gutter-width;
+
+  > .col, > [class*=col-] {
+    padding-right: $form-gutter-width;
+    padding-left: $form-gutter-width;
+  }
+
+  &.no-gutters {
+    margin-right: 0;
+    margin-left: 0;
+
+    > .col, > [class*="col-"] {
+      padding-right: 0;
+      padding-left: 0;
+    }
+
+  }
+
+}
+
+
+/*-----------------------------------------------------------------------------------*/
+/* INPUTS */
+/*-----------------------------------------------------------------------------------*/
+
+/* --------------------- TEXTAREA --------------------- */
+
+textarea {
+  min-height: 16.2rem;
+  height: auto;
+}
+
+
+/* --------------------- SUBMIT --------------------- */
+
+input[type=submit] {
+  // @include btn;
+  // @include btn-default;
+  // @include btn-disabled;
+  vertical-align: top;
+}
+
+
+/* --------------------- FORM CONTROL --------------------- */
+
+$form-control-icon-invalid: str-replace(url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 352 512'%3E%3Cpath fill='#{$color-danger}' d='M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z'/%3E%3C/svg%3E"), "#", "%23") !default;
+$form-control-icon-valid: str-replace(url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='#{$color-success}' d='M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z'/%3E%3C/svg%3E"), "#", "%23") !default;
+
+@mixin form-control {
+  display: block;
+  width: 100%;
+  height: $form-height;
+  padding: $form-padding-y $form-padding-x;
+  font-size: $form-font-size;
+  font-weight: $form-font-weight;
+  line-height: $form-line-height;
+  color: $form-color;
+  background: $form-background;
+  background-clip: padding-box;
+  border-width: $form-border-width;
+  border-style: $form-border-style;
+  border-color: $form-border-color;
+  @include border-radius($form-border-radius);
+  transition: border 0.3s ease-in-out, background-color 0.3s ease-in-out;
+
+  @include placeholder {
+    color: $form-placholder-color;
+  };
+
+  &:disabled, &[readonly] {
+    background-color: $color-grey-300;
+    color: $color-grey-600;
+    opacity: 1;
+  }
+
+  &.invalid {
+    border-color: $color-danger;
+    background: lighten($color-danger, 30);
+
+    @include placeholder {
+      color: lighten($color-danger, 15);
+    };
+
+  }
+
+}
+
+
+.form-control {
+  @include form-control;
+
+  &-sm {
+    height: $form-height-sm;
+    padding: $form-padding-y-sm $form-padding-x-sm;
+    font-size: $form-font-size-sm;
+    line-height: $form-line-height-sm;
+    font-weight: $form-font-weight-sm;
+    @include border-radius($form-border-radius-sm);
+  }
+
+  &-lg {
+    height: $form-height-lg;
+    padding: $form-padding-y-lg $form-padding-x-lg;
+    font-size: $form-font-size-lg;
+    line-height: $form-line-height-lg;
+    font-weight: $form-font-weight-lg;
+    @include border-radius($form-border-radius-lg);
+  }
+
+}
+
+
+/*-----------------------------------------------------------------------------------*/
+/* GROUPS */
+/*-----------------------------------------------------------------------------------*/
+
+/* --------------------- FORM GROUP --------------------- */
+
+.form-group {
+  position: relative;
+  margin-bottom: $form-group-margin-sm;
+
+  @include media-breakpoint-up(md) {
+    margin-bottom: $form-group-margin;
+  }
+
+  br {
+    display: none;
+  }
+
+}
+
+
+/* --------------------- INPUT GROUP --------------------- */
+
+.input-group {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  width: 100%;
+
+  .form-control {
+    position: relative;
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    width: 1%;
+  }
+
+  .input-group-text {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    height: $form-height;
+    padding: $form-padding-y $form-padding-x;
+    text-indent: 0.5rem;
+    font-size: $form-font-size;
+    font-weight: $form-font-weight;
+    line-height: $form-line-height;
+    color: $form-color;
+    background: $form-background;
+    background-clip: padding-box;
+    border-width: $form-border-width;
+    border-style: $form-border-style;
+    border-color: $form-border-color;
+    @include border-radius($form-border-radius);
+    @include transition($form-transition);
+  }
+
+}
+
+.input-group-sm > .form-control {
+  height: $form-height-sm;
+}
+
+.input-group-sm > .form-control,
+.input-group-sm > .input-group-prepend > .input-group-text,
+.input-group-sm > .input-group-append > .input-group-text,
+.input-group-sm > .input-group-prepend > .btn,
+.input-group-sm > .input-group-append > .btn {
+  padding: $form-padding-y-sm $form-padding-x-sm;
+  @include font-size($form-font-size-sm);
+  line-height: $form-line-height-sm;
+  height: $form-height-sm;
+  @include border-radius($form-border-radius-sm);
+}
+
+.input-group-lg > .form-control {
+  height: $form-height-lg;
+}
+
+.input-group-lg > .form-control,
+.input-group-lg > .input-group-prepend > .input-group-text,
+.input-group-lg > .input-group-append > .input-group-text,
+.input-group-lg > .input-group-prepend > .btn,
+.input-group-lg > .input-group-append > .btn {
+  padding: $form-padding-y-lg $form-padding-x-lg;
+  @include font-size($form-font-size-lg);
+  line-height: $form-line-height-lg;
+  font-weight: $form-font-weight-lg;
+  height: $form-height-lg;
+  @include border-radius($form-border-radius-lg);
+}
+
+.input-group-append, .input-group-prepend {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+
+  .btn {
+    margin: 0;
+  }
+
+}
+
+.input-group-prepend {
+  margin-right: -0.1rem;
+}
+
+.input-group-append {
+  margin-left: -0.1rem;
+}
+
+.input-group > .form-control:not(:last-child) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-right: 0;
+}
+
+.input-group > .form-control:not(:first-child) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-left: 0;
+}
+
+.input-group > .input-group-prepend > .btn,
+.input-group > .input-group-prepend > .input-group-text,
+.input-group > .input-group-append:not(:last-child) > .btn,
+.input-group > .input-group-append:not(:last-child) > .input-group-text,
+.input-group > .input-group-append:last-child > .btn:not(:last-child):not(.dropdown-toggle),
+.input-group > .input-group-append:last-child > .input-group-text:not(:last-child) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.input-group > .input-group-append > .btn,
+.input-group > .input-group-append > .input-group-text,
+.input-group > .input-group-prepend:not(:first-child) > .btn,
+.input-group > .input-group-prepend:not(:first-child) > .input-group-text,
+.input-group > .input-group-prepend:first-child > .btn:not(:first-child),
+.input-group > .input-group-prepend:first-child > .input-group-text:not(:first-child) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+
+/*-----------------------------------------------------------------------------------*/
+/* LABELS */
+/*-----------------------------------------------------------------------------------*/
+
+label, .label {
+  display: inline-block;
+  margin-bottom: 0.7rem;
+  vertical-align: top;
+  font-weight: $form-font-weight;
+  font-size: $form-font-size-sm;
+  color: $form-label-color;
+
+  @include media-breakpoint-up(md) {
+    margin-bottom: 1rem;
+    font-size: $form-font-size;
+  }
+
+}
+
+.screen-reader-text {
+  position: absolute;
+  width: 0.1rem;
+  height: 0.1rem;
+  padding: 0;
+  margin: -0.1rem;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+  
+/*-----------------------------------------------------------------------------------*/
+/* CHECKBOXES/RADIOS */
+/*-----------------------------------------------------------------------------------*/
+
+$checkboxradio-width: 2.2rem;
+$checkboxradio-height: 2.2rem;
+
+$checkboxradio-width-lg: 3.2rem;
+$checkboxradio-height-lg: 3.2rem;
+
+input[type=checkbox],
+input[type=radio] {
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: transparent;
+  height: $checkboxradio-height;
+  width: $checkboxradio-width;
+  display: inline-block;
+  vertical-align: text-bottom;
+  margin-right: 1rem;
+  padding: 0;
+  border: 0;
+  @include border-radius(0);
+}
+
+input[type=checkbox]::after,
+input[type=radio]::after {
+  position: relative;
+  // vertical-align: text-bottom;
+  content: "";
+  display: block;
+  border-width: $form-border-width;
+  border-style: $form-border-style;
+  border-color: $form-border-color;
+  background: $form-background;
+  height: $checkboxradio-height;
+  width: $checkboxradio-width;
+  @include border-radius ($form-border-radius);
+}
+
+input[type=checkbox]::before,
+input[type=radio]::before {
+  position: absolute;
+  top: 0;
+  font-family: $fontawesome;
+  font-weight: 900;
+  content: "\f00c";
+  display: block;
+  font-size: 1.2rem;
+  text-indent: 0.6rem;
+  line-height: $checkboxradio-height - 0.1rem;
+  text-align: left;
+  height: $checkboxradio-height;
+  width: $checkboxradio-width;
+  color: transparent;
+  z-index: 1;
+}
+
+input[type=checkbox]:focus, 
+input[type=radio]:focus {
+  outline: 0;
+  outline-offset: 0;
+}
+
+input[type=checkbox]:checked::before,
+input[type=radio]:checked::before {
+  color: $color-black;
+}
+
+input[type=checkbox],
+input[type=radio] {
+
+  &.checkbox-lg,
+  &.radio-lg {
+    height: $checkboxradio-height-lg;
+    width: $checkboxradio-width-lg;
+
+    &::after {
+      height: $checkboxradio-height-lg;
+      width: $checkboxradio-width-lg;
+    }
+
+    &::before {
+      line-height: $checkboxradio-height-lg - 0.1rem;
+      height: $checkboxradio-height-lg;
+      width: $checkboxradio-width-lg;
+      font-size: 1.8rem;
+      text-indent: 0.8rem;
+    }
+
+  }
+
+}
+
+
+/*-----------------------------------------------------------------------------------*/
+/* RADIO BUTTONS - CUSTOM */
+/*-----------------------------------------------------------------------------------*/
+
+.btn-radio {
+  display: block;
+  width: 100%;
+
+  input[type=radio] {
+    // display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    &::after {
+      display: none;
+    }
+
+    &::before {
+      display: none;
+    }
+
+  }
+
+  &:not(:disabled):not(.disabled):active,
+  &:not(:disabled):not(.disabled).active {
+    color: $color-grey-800 !important;
+    background: $color-alpha !important;
+    border-color: $color-alpha !important;
+  }
+
+}
+
+.invalid {
+
+  .btn-radio {
+    border-color: lighten($color-danger, 30);
+    // background: $color-danger;
+    background: lighten($color-danger, 30);
+    color: $color-danger;
+  }
+
+}
+
+
+/*-----------------------------------------------------------------------------------*/
+/* SELECTBOX - CUSTOM */
+/*-----------------------------------------------------------------------------------*/
+
+.form-select {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-width: 15rem;
+  margin-bottom: 0;
+  background-color: $form-background;;
+  @include transition(border-color 0.3s ease-in-out);
+  z-index: 10;
+
+  &-sm {
+    min-width: 12rem;
+  }
+
+  select {
+    border: none;
+    outline: none;
+    background: transparent;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 0;
+    margin: 0;
+    display: block;
+    width: 100%;
+    height: $form-height;
+    padding: $form-padding-y $form-padding-x;
+    font-size: $form-font-size;
+    font-weight: $form-font-weight;
+    line-height: $form-line-height;
+    color: $form-color;
+    border-width: $form-border-width;
+    border-style: $form-border-style;
+    border-color: $form-border-color;
+    @include border-radius($form-border-radius);
+
+    // Unstyle the caret on `<select>`s in IE10+.
+    &::-ms-expand {
+      background-color: transparent;
+      border: 0;
+    }
+
+    &:hover {
+      z-index: 2;
+      // border-color: $input-focus-border-color;
+      // color: $pagination-hover-color;
+      // text-decoration: none;
+      // background-color: $pagination-hover-bg;
+      // border-color: $pagination-hover-border-color;
+    }
+
+    // &:focus {
+    //   z-index: 2;
+    //   outline: $pagination-focus-outline;
+    //   box-shadow: $pagination-focus-box-shadow;
+    //   border-color: $input-focus-border-color;
+    // }
+
+  }
+
+  &::after {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 4rem;
+    height: 100%;
+    line-height: $form-height;
+    font-family: $fontawesome;
+    font-weight: $weight-bold;
+    content: "\f107";
+    text-align: center;
+    font-size: 1.6rem;
+    z-index: -1;
+  }
+
+}
+
+
+/*-----------------------------------------------------------------------------------*/
+/* FORM VALIDATION */
+/*-----------------------------------------------------------------------------------*/
+
+.required {
+  color: $color-danger;
+}
+
+
+/* --------------------- RECAPTCHA BADGE --------------------- */
+
+.grecaptcha-badge {
+  display: none !important;
+}

@@ -1,0 +1,64 @@
+[class~='management-profile']:last-of-type  {
+    margin-top: 100px;
+}
+.management-team .entry-content > p:last-of-type {
+    margin-bottom: 100px;
+}
+.sector-sub-page .management-profile, .management-profile {
+    @extend .text-center, .text-md-left, .pt-4;
+    margin-bottom: 58px;
+
+    p {
+        font-size: 18px;
+        line-height: 27px;
+    }
+
+    .row {
+        @extend .align-items-center, .justify-content-center;
+    }
+
+    &__image-container {
+        @extend .text-lg-right;
+        img {
+            @extend .mb-2;
+            width: 172px; 
+            max-width: 172px;
+            height: 172px; 
+            object-fit: cover;
+            border-radius: 50%;
+
+            @include media-breakpoint-up(lg) {
+                width: 208px;
+                height: 208px;
+                max-width: 208px;
+            }
+        }
+    }
+
+    &__fullname {
+        @extend .text-dark, .mb-2, .text-left;
+        font-size: 38px !important;
+    }
+
+    &__jobtitle {
+        @extend .mb-4, .text-lora;
+        font-size: 26px;
+    }
+
+    &__emailaddress {
+        a {
+            @extend .text-hind, .position-relative, .pt-3;
+            font-size: 16px;
+            &:before {
+                @extend .w-100, .position-absolute;
+                height: 1px;
+                background: $secondary;
+                content: "";
+                top: 4px;
+            }
+        }
+    }
+    p, p:first-of-type {
+        @extend .text-left;
+    }
+}

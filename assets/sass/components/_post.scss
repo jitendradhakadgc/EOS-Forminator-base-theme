@@ -1,0 +1,411 @@
+
+/*-----------------------------------------------------------------------------------*/
+/* POST MIXINS */
+/*-----------------------------------------------------------------------------------*/
+
+/* --------------------- GLOBAL --------------------- */
+
+@mixin post-global {
+  position: relative;
+  overflow: hidden;
+  display: block;
+  text-decoration: none;
+  padding-top: 2.5rem;
+  padding-bottom: 1.5rem;
+  @include transition-base;
+
+  a {
+    background-color: $color-white;
+  }
+
+  &__media {
+    height: 14rem;
+    width: 100%;
+    display: block;
+    overflow: hidden;
+
+    @include media-breakpoint-up(sm) {
+      height: auto;
+    }
+
+    @include media-breakpoint-up(lg) {
+      height: 20rem;
+    }
+
+  }
+
+  &__img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    @include transition(all 0.8s ease-in-out);
+
+    img {
+      display: none;
+      visibility: hidden;
+    }
+
+  }
+
+  &__body {
+    padding: 3rem 3rem 3.5rem;
+
+    @include media-breakpoint-up(lg) {
+      padding: 3rem 3rem 12rem;
+    }
+
+  }
+
+  &__header {
+    color: $color-black;
+    font-size: 2rem;
+    @include transition-base;
+
+    @include media-breakpoint-up(md) {
+      font-size: 2.5rem
+    }
+
+  }
+
+  &__meta {
+    font-size: 1.1rem;
+    line-height: 2;
+    color: $color-grey-800;
+    font-weight: $weight-regular;
+    text-transform: uppercase;
+
+    @include media-breakpoint-up(md) {
+      font-size: 1.3rem;
+    }
+
+  }
+
+  &__category {
+    display: inline-block;
+  }
+
+  &__date {
+    display: inline-block;
+    margin-left: 0.8rem;
+
+    @include media-breakpoint-up(md) {
+      margin-left: 2rem;
+    }
+
+  }
+
+  &__excerpt {
+    color: $color-black;
+    font-size: 1.4rem;
+    @include transition-base;
+
+    @include media-breakpoint-up(sm) {
+      font-size: 1.6rem
+    }
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+
+  }
+
+  .btn-post {
+    @include btn;
+  }
+
+  &__footer {
+
+    @include media-breakpoint-up(lg) {
+      position: absolute;
+      bottom: 3rem;
+      left: 2.5rem;
+    }
+
+  }
+
+}
+
+
+/* --------------------- GLOBAL HOVER --------------------- */
+
+@mixin post-global-hover {
+
+  .post {
+
+    &__footer {
+      // @include animated-underline-hover;
+    }
+
+    &__img {
+      @include transform (scale(1.1));
+    }
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+}
+
+
+@mixin post-btn-hover {
+
+  .post {
+
+    &__btn {
+
+      &::after {
+        margin-left: 2rem;
+      }
+
+    }
+
+  }
+
+}
+
+
+/*-----------------------------------------------------------------------------------*/
+/* POST STYLES */
+/*-----------------------------------------------------------------------------------*/
+
+.post {
+  @include post-global;
+
+  @include hover {
+    
+    @include post-global-hover;
+    @include post-btn-hover;
+
+  }
+
+}
+
+
+/*-----------------------------------------------------------------------------------*/
+/* POST - STICKY */
+/*-----------------------------------------------------------------------------------*/
+
+.blog {
+
+  .module-post--sticky {
+
+    .post {
+      @include post-global;
+      background-color: $color-alpha;
+      border-bottom: 0.5rem solid $color-beta;
+
+      &__meta {
+        color: $color-grey-500;
+      }
+
+      &__title {
+        color: $color-grey-300;
+      }
+
+      &__text {
+        color: $color-grey-500;
+      }
+
+      &__btn {
+        color: $color-grey-300; 
+
+        &::after { 
+          color: $color-grey-300;
+        }
+
+      }
+
+    }
+
+  }
+
+}
+
+
+/*-----------------------------------------------------------------------------------*/
+/* QUALITIES */
+/*-----------------------------------------------------------------------------------*/
+
+.post--qualities {
+
+  .post {
+
+    &__icon {
+      width: 6rem;
+      opacity: 0.8;
+    }
+
+    &__header {
+      font-size: 2.2rem;
+    }
+
+    &__excerpt {
+      font-size: 1.5rem;
+    }
+
+  }
+
+}
+
+
+/*-----------------------------------------------------------------------------------*/
+/* SERVICES */
+/*-----------------------------------------------------------------------------------*/
+
+.post--qualities {
+
+  .post {
+
+    &__icon {
+      width: 6rem;
+      opacity: 0.8;
+    }
+
+    &__header {
+      font-size: 2.2rem;
+    }
+
+    &__excerpt {
+      font-size: 1.5rem;
+    }
+
+  }
+
+}
+
+/*-----------------------------------------------------------------------------------*/
+/* PRODUCT SLIDER */
+/*-----------------------------------------------------------------------------------*/
+
+.slick-track {
+  display: flex;
+}
+
+@mixin service-slider {
+
+  .slider {
+    position: relative;
+    padding-bottom: 7rem;
+
+    .slick-list {
+      overflow-x: hidden;
+      padding: -1rem;
+    }
+
+  }
+
+  /* --------------------- ARROWS --------------------- */
+
+  .slick-slider {
+  
+    .slick {
+
+      &-arrow {
+        position: absolute;
+        top: 50%;
+        @include transform (translateY(-50%));
+        z-index: 1000;
+        padding: 1.2rem;
+        color: $color-grey-200;
+        font-size: 2.5rem;
+
+        &:hover, &:focus-within {
+          color: $color-white;
+        }
+
+      }
+
+      &-prev {
+        left: -5rem;
+      }
+
+      &-next {
+        right: -5rem;
+      }
+
+    }
+
+    .slick {
+
+      &-dots {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        text-align: center;
+        -webkit-tap-highlight-color: transparent;
+        position: absolute;
+        z-index: 1000;
+        bottom: -0.5rem;
+        left: 50%;
+        width: 100%;
+        display: block;
+        @include transform (translateX(-50%));
+
+        @include media-breakpoint-up(md) {
+          display: block;
+        }
+
+        li {
+          display: inline-block;
+          padding: 1rem;
+
+          .slick-dot {
+            width: 1.2rem;
+            height: 1.2rem;
+            background-color: transparent;
+            border-color: $color-white;
+            border-width: 0.2rem;
+            border-style: solid;
+            display: block;
+            position: relative;
+            cursor: pointer;
+            -webkit-backface-visibility: visible;
+            @include border-radius (50%);
+            @include transition-base;
+
+            @include hover-focus {
+
+              span {
+                @include transform (scale(1.3));
+              }
+
+            }
+
+          }
+
+          &.slick-active {
+
+            span {
+              background-color: $color-white;
+            }
+
+          }
+
+        }
+
+        > li {
+          display: inline-block;
+
+          &:only-child {
+            display: none;
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+
+}
+
+.services { 
+  @include service-slider;
+}

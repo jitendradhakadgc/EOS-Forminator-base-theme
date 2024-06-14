@@ -1,0 +1,59 @@
+.sector-sub-nav {
+    @extend .d-none, .d-md-block;
+    padding-bottom: 65px;
+    &-list {
+        @extend .m-0, .p-0, .d-flex, .justify-content-center, .flex-wrap;
+        list-style: none;
+    
+        li {
+            @extend .mx-2, .mb-2;
+            
+            a {
+                @extend .badge, .text-hind, .px-3;
+                padding-top: 8px;
+                padding-bottom: 6px;
+                font-weight: 400;
+                &:hover {
+                    color: $c-white;
+                }
+            }
+        }
+    }
+
+    &--government {
+        a {
+            color: $c-green;
+            border: 1px solid $c-green;
+            &:hover {
+                background: $c-green;
+            }
+        }
+    }
+    &--corporate {
+        a {
+            color: $c-blue;
+            border: 1px solid $c-blue;
+            &:hover {
+                background: $c-blue;
+            }
+        }
+    }
+    &--private {
+        a {
+            color: $c-purple;
+            border: 1px solid $c-purple;
+            &:hover {
+                background: $c-purple;
+            }
+        }
+    }
+    &--about {
+        a {
+            color: $primary;
+            border: 1px solid $primary;
+            &:hover {
+                background: $primary;
+            }
+        }
+    }
+}

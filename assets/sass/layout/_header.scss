@@ -1,0 +1,343 @@
+
+/*-----------------------------------------------------------------------------------*/
+/* HEADER  */
+/*-----------------------------------------------------------------------------------*/
+
+.header {
+
+  &__primary {
+    background-color: $primary-header-background;
+    font-weight: $header-font-weight;
+    font-size: $header-font-size-sm;
+
+    @include media-breakpoint-up(md) {  
+      font-size: $header-font-size;
+    }
+
+    &__container {
+      @include make-container();
+
+      @include media-breakpoint-up(lg) {  
+        @include make-container-max-widths();
+      }
+
+    }
+
+  }
+
+  &__secondary {
+    background-color: $secondary-header-background;
+    font-weight: $header-font-weight;
+    font-size: $header-font-size-sm;
+
+    @include media-breakpoint-up(md) {  
+      font-size: $header-font-size;
+    }
+    
+    &__container {
+      @include make-container();
+    }
+
+  }
+
+}
+
+
+/*-----------------------------------------------------------------------------------*/
+/* LOGO */
+/*-----------------------------------------------------------------------------------*/
+
+@mixin logo-size {
+  // max-width: 22rem;
+  width: 10.5rem;
+  height: auto;
+  // width: 100%;
+
+  @include media-breakpoint-up(sm) {
+    width: 12rem;
+  }
+
+  @include media-breakpoint-up(lg) {
+    // max-width: 27rem;
+    width: 14rem;
+  }
+
+  @include media-breakpoint-up(xl) {
+    // max-width: 29rem;
+    width: 16rem;
+  }
+
+  @include media-breakpoint-up(xxl) {
+    // max-width: 30rem;
+    width: 17rem;
+  }
+
+}
+
+.header {
+
+  .logo {
+    display: inline-block;
+    opacity: 1;
+    line-height: 1;
+    position: relative;
+    @include transition-base;
+
+    &__img {
+      display: inline-block;
+      opacity: 1;
+
+      @include logo-size;
+      @include transition-base;
+
+      @include hover-focus {
+        opacity: 0.8;
+      }
+
+    }
+
+  }
+
+}
+
+
+/*-----------------------------------------------------------------------------------*/
+/* COMMUNICATION */
+/*-----------------------------------------------------------------------------------*/
+
+.header {
+
+  &__communication {
+
+    ul {
+      @include list-unstyled;
+      @include list-inline;
+      margin: 0;
+
+      li, li:not(:last-child) {
+        margin-right: 1rem;
+
+        @include media-breakpoint-up(sm) {
+          margin-right: 1.5rem;
+        }
+
+      }
+
+    }
+
+    &__link {
+      color: $header-font-color;
+      display: inline-block;
+      color: $color-white;
+      font-weight: $weight-semibold;
+      @include transition-base;
+
+      i {
+        width: $header-icon-width - 0.5rem;
+        height: $header-icon-height - 0.5rem;
+        line-height: $header-icon-line-height - 0.5rem;
+        font-size: $header-icon-size - 0.2rem;
+        color: $color-white;
+        background: $header-icon-background;
+        border-color: $header-icon-border-color;
+        border-width: $header-icon-border-width;
+        border-style: solid;
+        @include border-radius (50%);
+        text-align: center;
+        @include transition-base;
+
+        @include media-breakpoint-up(sm) {
+          width: $header-icon-width;
+          height: $header-icon-height;
+          line-height: $header-icon-line-height;
+          font-size: $header-icon-size;
+        }
+
+      }
+
+      span {
+        display: inline-block;
+        padding-left: 0.8rem;
+        color: $header-font-color;
+        @include transition-base;   
+      }
+
+      @include hover-focus {
+        color: $color-white;
+        text-decoration: none;
+
+        i {
+          border-color: $color-white;
+          background: $color-white;
+          color: $primary-header-background;
+        }
+
+        span {
+          color: $color-white;
+          text-decoration: none;
+        }
+
+      }
+
+      &--menu {
+        font-size: 1.6rem;
+        padding-top: 0;
+        padding-bottom: 0;
+        border-color: $header-icon-border-color;
+        border-width: $header-icon-border-width;
+        border-style: solid;
+        @include border-radius (5rem);
+
+        @include media-breakpoint-up(sm) {
+          margin-left: 0.5rem;
+        }
+
+        i {
+          width: $header-icon-width - 0.7rem;
+          height: $header-icon-height - 0.7rem;
+          line-height: $header-icon-line-height - 0.7rem;
+          border-width: 0;
+          @include border-radius (0);
+
+          @include media-breakpoint-up(sm) {
+            width: $header-icon-width - 0.2rem;
+            height: $header-icon-height - 0.2rem;
+            line-height: $header-icon-line-height - 0.2rem;
+          }
+
+          &:before {
+            content: "\f0c9";
+          }
+
+        }
+
+        span {
+          padding-left: 0;
+          padding-right: 1rem;
+          margin-left: -0.4rem;
+        }
+
+        @include hover-focus {
+          border-color: $color-white;
+          background: $color-white;
+          color: $primary-header-background;
+  
+          i {
+            background: transparent;
+            color: $primary-header-background;
+          }
+  
+          span {
+            color: $primary-header-background;
+          }
+  
+        }
+
+        &.active {
+
+          i {
+  
+            &:before {
+              content: "\f00d";
+            }
+  
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+
+}
+
+
+/*-----------------------------------------------------------------------------------*/
+/* SEARCH */
+/*-----------------------------------------------------------------------------------*/
+
+.header { 
+
+  /* --------------------- SEARCH FORM --------------------- */
+
+  &__search {
+    background-color: $color-grey-900;
+    display: block;
+    max-height: 0;
+    overflow: hidden;
+    @include transition(max-height 1s ease);
+
+    .search {
+      opacity: 0;
+      padding-top: 1.5rem;
+      padding-bottom: 1.5rem;
+      text-align: center;
+      @include transition(opacity 0.8s ease);
+    }
+
+    &.active {
+      max-height: 10rem;
+      overflow: visible;
+
+      .search {
+        opacity: 1;
+        @include transition-delay (0.5s);
+      }
+
+    }
+
+  }
+
+
+  /* --------------------- SEARCH TOGGLE --------------------- */
+
+  .search-toggle {
+    width: $header-icon-width;
+    height: $header-icon-height;
+    font-size: $header-icon-size;
+    line-height: $header-icon-line-height;
+    color: $color-white;
+    background: $header-icon-background;
+    border-color: $header-icon-border-color;
+    border-width: $header-icon-border-width;
+    border-style: solid;
+    @include border-radius (50%);
+    text-align: center;
+    margin-left: 0.5rem;
+
+    @include hover-focus {
+      border-color: $color-white;
+      background: $color-white;
+      color: $primary-header-background;
+      text-decoration: none;
+    }
+
+    &.open {
+
+      .search-toggle__icon {
+  
+        &:before {
+          content: "\f00d";
+        }
+
+      }
+
+    }
+
+    &.close {
+
+      .search-toggle__icon {
+  
+        &:before {
+          content: "\f002";
+        }
+
+      }
+
+    }
+    
+  }
+
+}

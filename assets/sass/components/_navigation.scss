@@ -1,0 +1,1087 @@
+/*-----------------------------------------------------------------------------------*/
+/* STRUCTURE  */
+/*-----------------------------------------------------------------------------------*/
+
+.navigation,
+.navigation .menu-item-has-children ul {
+  max-height: none;
+  overflow: visible;
+}
+
+.navigation {
+
+  &.opened {
+    max-height: 1000rem;
+  }
+
+  &.closed {
+    max-height: none;
+  }
+
+}
+
+/* --------------------- STRUCTURE LARGE SCREENS ONLY --------------------- */
+
+@include media-breakpoint-up($nav-breakpoint-up) {
+
+  .header {
+
+    &__navigation {
+      position: relative;
+      -ms-flex-preferred-size: 0;
+      flex-basis: 0;
+      -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+      flex-grow: 1;
+      max-width: 100%;
+      width: 100%;
+      min-height: 0.1rem;
+      padding-right: 1.5rem;
+      padding-left: 1.5rem;
+
+      .navigation {
+        position: relative !important;
+      }
+
+    }
+
+  }
+
+}
+
+
+/* --------------------- STRUCTURE SMALL SCREENS ONLY --------------------- */
+
+@include media-breakpoint-down($nav-breakpoint-down) {
+
+  .header {
+
+    &__navigation {
+      height: 100%;
+      width: 100%;
+      position: fixed;
+      z-index: 999999;
+      top: 7rem;
+      left: 0;
+      overflow-x: scroll;
+      -webkit-overflow-scrolling: touch;
+      margin-left: -100%;
+      background-color: $color-grey-900;
+      @include transition (margin-left 0.8s ease !important);
+
+      @include media-breakpoint-up(sm) {
+        top: 7.5rem;
+      }
+
+      @include media-breakpoint-up(md) {
+        top: 7.5rem;
+      }
+
+    }
+
+  }
+
+  html.js-nav-active {
+    overflow-x: inherit;
+
+    body {
+      overflow: hidden;
+      height: 100%;
+    }
+
+    .header {
+
+      &__navigation {
+        margin-left: 0;
+      }
+
+    }
+
+  }
+
+}
+
+
+/*-----------------------------------------------------------------------------------*/
+/* PRIMARY STYLING  */
+/*-----------------------------------------------------------------------------------*/
+
+/* --------------------- PRIMARY SMALL SCREENS ONLY --------------------- */
+
+@include media-breakpoint-down($nav-breakpoint-down) {
+
+  .navigation {
+    width: 100%;
+    position: relative !important;
+
+    /* --- LEVEL ONE --- */
+
+    ul {
+      padding-right: 0;
+      padding-left: 0;
+      margin-bottom: 10rem;
+      margin-top: 0;
+
+      li {
+        position: relative;
+
+        > a {
+          display: block;
+          width: 100%;
+          color: $color-grey-200;
+          background: $color-grey-900;
+          border-bottom: 0.1rem solid $color-grey-800;
+          text-decoration: none;
+          font-weight: $primary-nav-font-weight;
+          font-size: $primary-nav-font-size-sm;
+          padding: 2rem;
+          @include transition-base;
+
+          &:hover,
+          &:focus-within {
+            color: $color-white;
+            background: lighten($color-alpha, 20);
+            border-color: lighten($color-alpha, 20);
+            text-decoration: none;
+          }
+
+        }
+
+        &.current-menu-item {
+
+          > a {
+            color: $color-black;
+            background-color: $color-beta;
+            // border-color: $color-beta;
+          }
+
+        }
+
+        &.current-menu-parent {
+
+          > a {
+            color: $color-black;
+            background-color: $color-beta;
+            // border-color: $color-beta;
+
+            &:hover,
+            &:focus-within {
+              color: $color-white;
+              background: lighten($color-alpha, 20);
+              // border-color: lighten($color-alpha, 20);
+              text-decoration: none;
+            }
+
+          }
+
+        }
+
+      }
+
+      /* --- LEVEL TWO --- */
+
+      ul {
+        padding-bottom: 0;
+        margin-bottom: 0;
+
+        li {
+
+          a {
+            white-space: normal;
+            padding: 2rem 2.2rem;
+            border-top: 0;
+            font-size: 1.4rem;
+            line-height: 1.3;
+            font-weight: $primary-nav-font-weight;
+            color: $color-grey-200;
+            background: $color-grey-700;
+            border-bottom: 0.1rem solid $color-grey-800;
+          }
+
+          &.current-menu-item {
+
+            > a {
+              border-color: $color-alpha;
+              color: $color-white;
+              background: $color-alpha;
+            }
+
+          }
+
+        }
+
+        /* --- LEVEL THREE --- */
+
+        ul {
+          display: none;
+        }
+
+      }
+
+    }
+
+    .sub-menu {
+      clip: rect(0 0 0 0);
+      max-height: 0;
+      position: absolute;
+      display: none; // This way you don't have focus on sub menu items unless you open the sub menu.
+      overflow: hidden;
+      zoom: 1;
+
+      &.toggled {
+        display: block;
+        max-height: 1000rem;
+        position: relative;
+      }
+
+    }
+
+    .dropdown-toggle {
+      border: 0.1rem solid $color-grey-200;
+      color: $color-grey-200;
+      background-color: $color-grey-900;
+      content: "";
+      height: 4.4rem;
+      width: 4.4rem;
+      padding: 0;
+      position: absolute;
+      margin: 0;
+      text-transform: lowercase;
+      top: 1.2rem;
+      right: 1.5rem;
+      font-family: $fontawesome;
+      font-style: normal;
+      font-weight: $weight-bold;
+      @include border-radius (0.5rem);
+
+      @include media-breakpoint-up($nav-breakpoint-up) {
+        display: none;
+      }
+
+      @include hover-focus {
+        color: $color-grey-200;
+      }
+
+      &::after {
+        content: "\f067";
+        font-size: 1.2rem;
+      }
+
+      &.toggled {
+
+        &::after {
+          content: "\f068";
+        }
+
+      }
+
+    }
+
+  }
+
+}
+
+
+/* --------------------- PRIMARY LARGE SCREENS ONLY --------------------- */
+
+@include media-breakpoint-up($nav-breakpoint-up) {
+
+  .navigation {
+
+    /* --- LEVEL ONE --- */
+
+    > ul {
+      padding: 0;
+      margin: 0;
+      list-style: none;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+
+      > li {
+        position: relative;
+        display: block;
+        padding: 0 0.5rem;
+
+        @include media-breakpoint-up(xl) {
+          padding: 0 1rem;
+        }
+
+        &:hover > ul,
+        &:focus-within > ul {
+          visibility: visible;
+          display: block;
+        }
+
+        > a {
+          position: relative;
+          display: block;
+          width: 100%;
+          text-decoration: none;
+          font-weight: $primary-nav-font-weight;
+          font-size: $primary-nav-font-size;
+          color: $header-font-color;
+          margin: 1.5rem 0;
+          padding: 0 0.5rem;
+          @include transition-base;
+        }
+
+        &:hover,
+        &:focus-within {
+
+          > a {
+            color: $color-white;
+            text-decoration: none;
+          }
+
+        }
+
+        &.menu-item-has-children {
+
+          > a::after {
+            display: inline-block;
+            margin-left: 0.7rem;
+            font-family: $fontawesome;
+            font-style: normal;
+            font-weight: $weight-fontawesome;
+            content: '\f107';
+            color: rgba($primary-nav-font-color, 0.5);
+            margin-left: 1rem;
+            @include transition-base;
+          }
+
+          &:hover,
+          &:focus-within {
+
+            > a {
+
+              &::after {
+                color: $color-white;
+                @include transform (rotate(180deg));
+              }
+
+            }
+
+          }
+
+        }
+
+        &.current-menu-item {
+
+          > a {
+            color: darken($color-alpha, 20%);
+
+            &::after {
+              color: darken($color-alpha, 20%) !important;
+            }
+
+          }
+
+          &:hover,
+          &:focus-within {
+
+            > a {
+              color: darken($color-alpha, 20%);
+
+              &::after {
+                color: darken($color-alpha, 20%) !important;
+              }
+
+            }
+
+          }
+
+        }
+
+        &.current-menu-parent {
+
+          > a {
+            color: lighten($color-alpha, 20%);
+          }
+
+        }
+
+      }
+
+      /* --- LEVEL TWO --- */
+
+      ul {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 99999;
+        text-align: left;
+        width: 100%;
+        min-width: 20.5rem;
+        visibility: hidden;
+        display: none;
+
+        li {
+          border: 0;
+          margin: 0;
+          display: block;
+          height: auto;
+          width: 100%;
+          position: relative;
+          line-height: 1;
+
+          &:hover > ul,
+          &:focus-within > ul {
+            visibility: visible;
+            display: block;
+          }
+
+          a {
+            display: block;
+            white-space: normal;
+            width: 100%;
+            padding: 1.5rem;
+            background: $color-grey-700;
+            border-top: 0;
+            font-size: 1.3rem;
+            line-height: 1.3;
+            color: $color-white;
+            font-weight: $primary-nav-font-weight;
+          }
+
+          &:not(:last-child) {
+            
+            a {
+              border-bottom: 0.1rem solid $color-grey-500;
+            }
+
+          }
+
+          &:hover,
+          &:focus-within {
+
+            a {
+              color: $color-white;
+              background: $color-grey-500;
+              text-decoration: none;
+            }
+
+          }
+
+          &.current-menu-item {
+
+            > a {
+              background: $color-alpha;
+            }
+
+            &:hover,
+            &:focus-within {
+
+              a {
+                background: $color-alpha;
+              }
+
+            }
+
+          }
+
+        }
+
+        /* --- LEVEL THREE --- */
+
+        ul {
+          display: none;
+        }
+
+      }
+
+    }
+
+    .dropdown-toggle {
+      display: none;
+    }
+
+  }
+
+}
+
+
+/*-----------------------------------------------------------------------------------*/
+/* SECONDARY STYLING  */
+/*-----------------------------------------------------------------------------------*/
+
+/* --------------------- SECONDARY SMALL SCREENS ONLY --------------------- */
+
+@include media-breakpoint-down($nav-breakpoint-down) {
+
+  .navigation__secondary {
+    width: 100%;
+    position: relative !important;
+
+    /* --- LEVEL ONE --- */
+
+    ul {
+      padding: 0;
+      margin-top: 0;
+      margin-bottom: 0;
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      -webkit-justify-content: flex-end;
+      -moz-justify-content: flex-end;
+      -ms-justify-content: flex-end;
+      justify-content: flex-end;
+      -ms-flex-pack: flex-end;
+      -webkit-box-pack: flex-end;
+      // -webkit-box-align: center;
+      // -ms-flex-align: center;
+      // align-items: center;
+
+      li {
+        position: relative;
+        text-align: center;
+
+        @include media-breakpoint-up(sm) {
+          -ms-flex-preferred-size: 0;
+          flex-basis: 0;
+          -webkit-box-flex: 1;
+          -ms-flex-positive: 1;
+          flex-grow: 1;
+          max-width: 100%;
+        }
+
+        @include media-breakpoint-down(xs) {
+          -webkit-box-flex: 0;
+          -ms-flex: 0 0 50%;
+          flex: 0 0 50%;
+          max-width: 50%;
+        }
+
+        > a {
+          display: block;
+          width: 100%;
+          height: 100%;
+          color: $color-grey-200;
+          background: $color-grey-900;
+          text-decoration: none;
+          font-weight: $secondary-nav-font-weight;
+          font-size: $secondary-nav-font-size-sm;
+          line-height: 1.5;
+          padding: 1.2rem;
+          @include transition-base;
+          border-top: 0.1rem solid $color-grey-800;
+          border-right: 0.1rem solid $color-grey-800;
+
+          @include media-breakpoint-down(sm) {
+            font-size: 1.3rem;
+            padding: 1.2rem;
+            border-top: 0.1rem solid $color-grey-800;
+            border-right: 0.1rem solid $color-grey-800;
+          }
+
+          &:hover,
+          &:focus-within {
+            color: $color-white;
+            background: lighten($color-alpha, 20);
+            border-color: lighten($color-alpha, 20);
+            text-decoration: none;
+          }
+
+        }
+
+        &.current-menu-item {
+
+          > a {
+            color: $color-black;
+            background-color: $color-beta;
+            border-color: $color-beta;
+          }
+
+        }
+
+        &.current-menu-parent {
+
+          > a {
+            color: $color-black;
+            background-color: $color-beta;
+            border-color: $color-beta;
+
+            &:hover,
+            &:focus-within {
+              color: $color-white;
+              background: lighten($color-alpha, 20);
+              border-color: lighten($color-alpha, 20);
+              text-decoration: none;
+            }
+
+          }
+
+        }
+
+        &.estimate {
+
+          @include media-breakpoint-down(sm) {
+            flex: 0 0 100%;
+            max-width: 100%;
+          }
+
+          > a {
+            background: lighten($color-gamma, 10%);
+            border-color: lighten($color-gamma, 10%);
+
+            &::after {
+              position: relative;
+              display: inline-block;
+              margin-left: 1.5rem;
+              content: "\f105";
+              font-family: $fontawesome;
+              font-weight: $weight-fontawesome;
+              color: $color-beta;
+            }
+
+            &:hover,
+            &:focus-within {
+              background: lighten($color-gamma, 5%);
+              border-color: lighten($color-gamma, 5%);
+
+              &::after {
+                color: $color-beta;
+              }
+
+            }
+
+          }
+
+          &.current-menu-item {
+
+            > a {
+              color: $color-white;
+              background: lighten($color-gamma, 10%);
+              border-color: lighten($color-gamma, 10%);
+
+              &::after {
+                color: $color-beta;
+              }
+
+              &:hover,
+              &:focus-within {
+                color: $color-white;
+                background: lighten($color-gamma, 5%);
+                border-color: lighten($color-gamma, 5%);
+
+                &::after {
+                  color: $color-beta;
+                }
+
+              }
+              
+            }
+  
+          }
+
+        }
+
+      }
+
+      /* --- LEVEL TWO --- */
+
+      ul {
+        padding-bottom: 0;
+        margin-bottom: 0;
+
+        li {
+
+          a {
+            white-space: normal;
+            padding: 2rem 2.2rem;
+            border-top: 0;
+            font-size: 1.3rem;
+            line-height: 1.3;
+            font-weight: $secondary-nav-font-weight;
+            color: $color-grey-200;
+            background: $color-grey-700;
+            border-bottom: 0.1rem solid $color-grey-800;
+          }
+
+          &.current-menu-item {
+
+            > a {
+              border-color: $color-beta;
+              color: $color-white;
+              background: $color-beta;
+            }
+
+          }
+
+        }
+
+        /* --- LEVEL THREE --- */
+
+        ul {
+          display: none;
+        }
+
+      }
+
+    }
+
+    .sub-menu {
+      clip: rect(0 0 0 0);
+      max-height: 0;
+      position: absolute;
+      display: none; // This way you don't have focus on sub menu items unless you open the sub menu.
+      overflow: hidden;
+      zoom: 1;
+
+      &.toggled {
+        display: block;
+        max-height: 1000rem;
+        position: relative;
+      }
+
+    }
+
+    .dropdown-toggle {
+      border: 0.1rem solid $color-grey-200;
+      color: $color-grey-200;
+      background-color: $color-grey-900;
+      content: "";
+      height: 4.4rem;
+      width: 4.4rem;
+      padding: 0;
+      position: absolute;
+      margin: 0;
+      text-transform: lowercase;
+      top: 1.2rem;
+      right: 1.5rem;
+      font-family: $fontawesome;
+      font-style: normal;
+      font-weight: $weight-bold;
+      @include border-radius (0.5rem);
+
+      @include media-breakpoint-up($nav-breakpoint-up) {
+        display: none;
+      }
+
+      @include hover-focus {
+        color: $color-grey-200;
+      }
+
+      &::after {
+        content: "\f067";
+        font-size: 1.2rem;
+      }
+
+      &.toggled {
+
+        &::after {
+          content: "\f068";
+        }
+
+      }
+
+    }
+
+  }
+
+}
+
+
+/* --------------------- SECONDARY LARGE SCREENS ONLY --------------------- */
+
+@include media-breakpoint-up($nav-breakpoint-up) {
+
+  .navigation__secondary {
+
+    /* --- LEVEL ONE --- */
+
+    > ul {
+      padding: 0;
+      margin: 0;
+      list-style: none;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+
+      > li {
+        position: relative;
+        display: block;
+        padding: 0 1rem;
+
+        @include media-breakpoint-up(xl) {
+          padding: 0 1.5rem;
+        }
+
+        &:hover > ul,
+        &:focus-within > ul {
+          visibility: visible;
+          display: block;
+        }
+
+        > a {
+          position: relative;
+          display: block;
+          width: 100%;
+          text-decoration: none;
+          font-weight: $secondary-nav-font-weight;
+          font-size: $secondary-nav-font-size;
+          color: $secondary-nav-font-color;
+          margin: 1.5rem 0;
+          padding: 0 0.5rem;
+          @include transition-base;
+        }
+
+        &:hover,
+        &:focus-within {
+
+          > a {
+            color: $color-white;
+            text-decoration: none;
+          }
+
+        }
+
+        &.menu-item-has-children {
+
+          > a::after {
+            display: inline-block;
+            margin-left: 0.7rem;
+            font-family: $fontawesome;
+            font-style: normal;
+            font-weight: $weight-fontawesome;
+            content: '\f107';
+            color: lighten($secondary-header-background, 20%);
+            margin-left: 1rem;
+            @include transition-base;
+          }
+
+          &:hover,
+          &:focus-within {
+
+            > a {
+
+              &::after {
+                color: $color-white;
+                @include transform (rotate(180deg));
+              }
+
+            }
+
+          }
+
+        }
+
+        &.current-menu-item {
+
+          > a {
+            color: $color-beta;
+
+            &::after {
+              color: $color-beta !important;
+            }
+
+          }
+
+          &:hover,
+          &:focus-within {
+
+            > a {
+              color: $color-beta;
+
+              &::after {
+                color: $color-beta !important;
+              }
+
+            }
+
+          }
+
+        }
+
+        &.current-menu-parent {
+
+          > a {
+            color: lighten($color-alpha, 20);
+          }
+
+        }
+
+        &.estimate {
+          margin-right: -90000px;
+          padding-right: 90000px;
+          background: lighten($color-gamma, 20%);
+          // background: $color-black;
+          padding-left: 0;
+          margin-left: 1.5rem;
+          
+          a {
+            color: $color-white;
+            background: lighten($color-gamma, 10%);
+            // background: $color-gamma;
+            margin: 0;
+            padding: 1.5rem 2.5rem 1.5rem 2.5rem;
+            height: 100%;
+
+            &::after {
+              position: relative;
+              display: inline-block;
+              margin-left: 1.5rem;
+              content: "\f105";
+              font-family: $fontawesome;
+              font-weight: $weight-fontawesome;
+              color: $color-beta;
+            }
+            
+          }
+
+          &:hover,
+          &:focus-within {
+
+            > a {
+              // color: $color-white;
+              background: lighten($color-gamma, 10%);
+
+              &::after {
+                color: $color-beta;
+              }
+
+              &:hover,
+              &:focus-within {
+                background: lighten($color-gamma, 5%);
+
+                &::after {
+                  color: $color-beta;
+                }
+
+              }
+
+            }
+
+            &.current-menu-item {
+
+              > a {
+                color: $color-white;  
+
+                &::after {
+                  color: $color-beta;
+                }
+
+              }
+    
+              &:hover,
+              &:focus-within {
+    
+                > a {
+                  color: $color-white;  
+
+                  &::after {
+                    color: $color-beta;
+                  }
+
+                }
+    
+              }
+    
+            }
+
+          }
+          
+        }
+
+      }
+
+      /* --- LEVEL TWO --- */
+
+      ul {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 99999;
+        text-align: left;
+        width: 100%;
+        min-width: 20.5rem;
+        visibility: hidden;
+        display: none;
+
+        li {
+          border: 0;
+          margin: 0;
+          display: block;
+          height: auto;
+          width: 100%;
+          position: relative;
+          line-height: 1;
+
+          &:hover > ul,
+          &:focus-within > ul {
+            visibility: visible;
+            display: block;
+          }
+
+          a {
+            display: block;
+            white-space: normal;
+            width: 100%;
+            padding: 1.5rem;
+            background: $color-grey-700;
+            border-top: 0;
+            font-size: 1.3rem;
+            line-height: 1.3;
+            color: $color-white;
+            font-weight: $secondary-nav-font-weight;
+          }
+
+          &:not(:last-child) {
+            
+            a {
+              border-bottom: 0.1rem solid $color-grey-500;
+            }
+
+          }
+
+          &:hover,
+          &:focus-within {
+
+            a {
+              color: $color-white;
+              background: $color-grey-500;
+              text-decoration: none;
+            }
+
+          }
+
+          &.current-menu-item {
+
+            > a {
+              background: $color-alpha;
+            }
+
+            &:hover,
+            &:focus-within {
+
+              a {
+                background: $color-alpha;
+              }
+
+            }
+
+          }
+
+        }
+
+        /* --- LEVEL THREE --- */
+
+        ul {
+          display: none;
+        }
+
+      }
+
+    }
+
+    .dropdown-toggle {
+      display: none;
+    }
+
+  }
+
+}

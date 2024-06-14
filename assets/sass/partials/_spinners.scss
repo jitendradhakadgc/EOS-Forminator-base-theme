@@ -1,0 +1,18 @@
+.spinner {
+
+  &--loading {
+    display: inline-block;
+    vertical-align: middle;
+    width: 1.2rem;
+    height: 1.2rem;
+    border: 0.2rem solid lighten($color-progress, 20%);
+    border-radius: 50%;
+    border-top-color: $color-white;
+    @include animation (spin 1s ease-in-out infinite);
+  }
+
+}
+
+@include keyframes (spin) {
+  to { @include transform (rotate(360deg)); }
+}

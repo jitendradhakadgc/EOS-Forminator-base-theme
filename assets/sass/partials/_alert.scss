@@ -1,0 +1,43 @@
+.alert {
+  color: $color-grey-800;
+  display: block;
+  @include font-size($display-2-size);
+  font-weight: $weight-semibold;
+  text-align: left;
+  padding: 2.5rem 3rem;
+  border-radius: $border-radius;
+
+  &-heading {
+    font-weight: $weight-regular;
+  }
+
+  label {
+    @include font-size($display-3-size);
+    font-weight: $weight-bold;
+  }
+
+}
+
+.alert-danger {
+  border-color:  $color-danger;
+  border-width:  $border-width;
+  border-style:  $border-style; 
+  color: $color-danger;
+  background: lighten($color-danger, 35);
+
+  label {
+    color: $color-danger;
+  }
+
+  input[type=checkbox]::after, 
+  input[type=radio]::after {
+    border-color: $color-danger;
+    background: lighten($color-danger, 50);
+  }
+
+  input[type=checkbox]:checked::before, 
+  input[type=radio]:checked::before {
+    color: $color-danger;
+  }
+
+}

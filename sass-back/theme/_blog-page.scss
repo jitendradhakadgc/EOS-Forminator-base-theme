@@ -1,0 +1,98 @@
+#blog-wrapper, #archive-wrapper {
+    .blog-intro {
+        @extend .text-center, .col-md-12;
+        .wp-block-quote {
+            @extend .text-left;
+        }
+    }
+    article {
+        @extend .h-100;
+        .card {
+            @extend .mb-4, .h-100;
+            &-img-top {
+                @extend .w-100, .position-relative;
+                height: 200px;
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center;
+            }
+
+            a {
+                @extend .text-white;
+            }
+            
+            &-body {
+                @extend .d-flex, .flex-column;
+            }
+            &-title {
+                @extend .flex-grow-1, .mb-0;
+            }
+            &-text p {
+                @extend .text-hind;
+                .btn {
+                    @extend .text-uppercase;
+                }
+            }
+            .entry-meta {
+                @extend .text-hind;
+            }
+        }
+    }
+
+}
+.single {
+    .entry-meta {
+        @extend .mb-3;
+    }
+    &-featured-image {
+        @extend .mb-3, .position-relative;
+        img {
+            @extend .w-100;
+        }
+    }
+}
+
+.post-navigation {
+    @extend .px-0;
+    .nav-previous, .nav-next {
+        @extend .col-sm-6, .mb-3;
+    }
+    .nav-next {
+        @extend .text-right;
+    }
+}
+
+.card-categories {
+    @extend .position-absolute, .m-0, .p-0;
+    list-style: none;
+    top: 0;
+    li {
+        @extend .mt-3;
+        margin-left: -5px;
+        a {
+            @extend .text-hind, .text-white, .bg-gold;
+            padding: 3px 10px;
+            &.corporate {
+                background: $c-purple;
+                &:hover {
+                    background: $c-purple-darker;
+                    text-decoration: none;
+                }
+            }
+            &.government {
+                background: $c-green;
+                &:hover {
+                    background: $c-green-darker;
+                    text-decoration: none;
+                }
+            }
+            &.private {
+                background: $c-blue;
+                &:hover {
+                    background: $c-blue-darker;
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+}

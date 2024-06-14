@@ -1,0 +1,32 @@
+.why-choose-mobius {
+    @extend .py-5, .text-center;
+    background: $c-white;
+
+    &__sector {
+        margin: 20px 0;
+
+        h3 {
+            @extend .text-uppercase, .position-relative, .text-left;
+            margin-bottom: 20px;
+            @include media-breakpoint-up(md) {
+                margin-bottom: 3rem;
+            }
+            &:after {
+                @extend .d-none;
+            }
+
+            img {
+                @extend .position-absolute;
+                width: 40px;
+                left: -60px;
+                top: -5px;
+            }
+        }
+
+        p {
+            @extend .text-left;
+            font-size: 18px;
+            line-height: 27px;
+        }
+    }
+}
